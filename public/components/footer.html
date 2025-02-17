@@ -1,0 +1,23 @@
+<footer>
+    <p>© 2025 Schulbibliothek | Alle Rechte vorbehalten</p>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Get the elements
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.header-right');
+
+    // Ensure the elements exist before adding the event listener
+    if (mobileMenu && navLinks) {
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    } else {
+        console.error('Mobile menu or nav links not found.');
+    }
+});
+
+</script>
+</body>
+
+</html>

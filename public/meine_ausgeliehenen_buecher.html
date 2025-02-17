@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Überfällige und in Kürze fällig werdende Bücher</title>
+      <link rel="stylesheet" href="css/styles.css">
+      <script src="js/include.js" defer></script>
+      <script src="js/script.js" defer></script>
+   </head>
+   <body>
+      <div id="header"></div>
+      <main>
+         <h2>Überfällige und in Kürze fällig werdende Bücher</h2>
+         <div class="search-container">        
+            <input type="text" id="searchInput" placeholder="Nach Buch suchen..." onkeyup="fetchDueAndUpcomingBooks(this.value, 1)">
+         </div>
+         <table>
+            <thead>
+               <tr>
+                  <th>Titel</th>
+                  <th>Autor</th>
+                  <th>Ausleihdatum</th>
+                  <th>Rückgabedatum</th>
+                  <th>Status</th>
+               </tr>
+            </thead>
+            <tbody id="booksTableBody">
+            </tbody>
+         </table>
+         <div id="pagination-container">
+         </div>
+      </main>
+      <div id="footer"></div>
+   </body>
+</html>

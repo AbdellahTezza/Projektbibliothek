@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Schulbibliothek</title>
+      <link rel="stylesheet" href="css/styles.css">
+      <script src="js/script.js"></script>
+      <script src="js/include.js" defer></script>
+   </head>
+   <body>
+      <div id="header"></div>
+      <main>
+      <h2>Meine Ausleihen</h2>
+      <div class="search-container">        
+         <input type="text" id="searchInput" placeholder="Nach Buch suchen..." onkeyup="fetchMeineAusgeliehenenBuecher(this.value, 1)">
+      </div>
+      <table>
+         <thead>
+            <tr>
+               <th>Titel</th>
+               <th>Autor</th>
+               <th>Ausleihdatum</th>
+               <th>Verbleibende Tage</th>
+               <th>Aktion</th>
+            </tr>
+         </thead>
+         <tbody id="ausleihen-list">
+            <!-- Dynamischer Inhalt -->
+         </tbody>
+      </table>
+      <div id="pagination-container">
+         <!-- Paginierungsbuttons -->
+      </div>
+      <!-- Modal für Buchausleihe -->
+      <div id="borrowModal" class="modal">
+         <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Buch ausleihen</h2>
+            <form id="borrowForm">
+               <div class="head_block">
+                  <p><strong>Titel:</strong> <span id="buchTitel"></span></p>
+                  <p><strong>Autor:</strong> <span id="buchAutor"></span></p>
+               </div>
+               <!-- Anzeige für Rückgabe -->
+               <div id="schuelerInfoContainer">
+                  <p><strong>Verbleibende Tage:</strong> <span id="tageBisRueckgabe"></span></p>
+               </div>
+               <input type="hidden" id="buchId" name="buch_id">
+               <button type="submit" id="modalSubmitBtn"> Buch zurückgeben </button>
+            </form>
+         </div>
+      </div>
+    </main>
+      <div id="footer"></div>
+   </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bücherverwaltung</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/include.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+</head>
+<style>
+    .pagination-btn {
+    background-color: #007BFF;
+    color: #ffffff;
+}
+</style>
+<body>
+    <div id="header"></div>
+    <main>
+        <h2>Bücherverwaltung</h2>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Suche nach Titel oder Autor..." />
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Autor</th>
+                    <th>Status</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Aktion</th>
+                </tr>
+            </thead>
+            <tbody id="book-list">
+            </tbody>
+        </table>
+
+
+        
+        <div id="pagination"  class="pagination-container">
+        </div>
+        
+        <div id="borrowModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle">Buch ausleihen</h2>
+                <form id="borrowForm">
+                    <div class="head_block">
+                        <p><strong>Titel:</strong> <span id="buchTitel"></span></p>
+                        <p><strong>Autor:</strong> <span id="buchAutor"></span></p>
+                    </div>
+                    <div id="schuelerSelectContainer">
+                        <label for="schuelerSelect">Schüler auswählen:</label>
+                        <select id="schuelerSelect" name="schueler_id"></select>
+                    </div>
+                    <div id="schuelerInfoContainer" style="display: none;">
+                        <p><strong>Entliehen von:</strong> <span id="entliehenVon"></span></p>
+                        <p><strong>Verbleibende Tage:</strong> <span id="tageBisRueckgabe"></span></p>
+                    </div>
+        
+                    <input type="hidden" id="buchId" name="buch_id">
+                    
+                    <button type="submit" id="modalSubmitBtn"></button>
+                </form>
+            </div>
+        </div>
+        
+    </main>
+<div id="footer"></div>
+</body>
+</html>

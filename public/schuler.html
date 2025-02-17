@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schülerliste</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js"></script>
+    <script src="js/include.js" defer></script>
+</head>
+<body>
+    <div id="header"></div>
+    
+    <main>
+        <div class="schueler-list">
+
+            <div class="add-book-container">
+                <h2>Schüler</h2>
+                <button class="add-book-btn" onclick="openModal()">+ Schüler hinzufügen</button>
+            </div>
+            <div class="search-container">        
+                <input type="text" id="searchInput" placeholder="Nach Buch suchen..." onkeyup="loadSchueler(this.value, 1)">
+             </div>
+            <div id="alertBox" class="alert"></div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Email</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody> <!-- WICHTIG: ID muss vorhanden sein -->
+            </table>
+
+            <div id="schueler-pagination" class="pagination-container"></div>
+
+        </div>
+
+        <!-- Modal für Schüler -->
+        <div id="schuelerModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modal-title">Schüler hinzufügen</h2>
+                <div id="alertBoxRepeat" class="alert edit_repeat" ></div>
+                <form id="schuelerForm">
+                    <input type="hidden" id="schuelerId">
+                    <input type="hidden" id="current_bild">
+
+                    <label for="vorname">Vorname:</label>
+                    <input type="text" id="vorname"  required>
+        
+                    <label for="nachname">Nachname:</label>
+                    <input type="text" id="nachname"   required>
+        
+                    <label for="email">Email:</label>
+                    <input type="email" id="email"  required>
+
+                        <label for="password" class="passwordF"></label>
+                        <input type="password" id="password" >
+                    
+                        <input type="file" name="bild" id="bild" accept="image/*"> 
+
+                    <button type="submit" id="saveBtn">Speichern</button>
+                </form>
+            </div>
+        </div>
+        
+
+    </main>
+
+    <div id="footer"></div>
+    <!-- <script src="js/headscript.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Bücher</title>
+      <link rel="stylesheet" href="css/styles.css">
+      <script src="js/include.js" defer></script>
+   </head>
+   <body>
+      <div id="header"></div>
+      <main>
+         <h2>Bücher</h2>
+         <section id="books" class="tab">
+            <div class="search-container">
+               <input type="text" id="searchInput" placeholder="Suche nach Titel oder Autor...">
+            </div>
+            <div id="alertBox" class="alert"></div>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Titel</th>
+                     <th>Autor</th>
+                     <th>Status</th>
+                     <th>Aktion</th>
+                  </tr>
+               </thead>
+               <tbody id="book-list"></tbody>
+            </table>
+            <div id="pagination" style="margin-top: 20px;">
+            </div>
+         </section>
+      </main>
+      <div id="footer"></div>
+      <script src="js/script.js"></script>
+
+   </body>
+</html>

@@ -1,0 +1,69 @@
+<header class="header">
+    <div class="logo">
+        <h1>Schulbibliothek</h1>
+    </div>
+    <button class="menu-toggle" id="mobile-menu">
+        <span class="hamburger-icon"></span> 
+    </button>
+    <div class="header-right">
+        <nav>
+            <ul id="schuler-menu" style="display: none;">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="bucher.html">Bücher</a></li>
+                <li><a href="meine_ausleihen.html">Meine Ausleihen</a></li>
+                <li><a href="meine_ausgeliehenen_buecher.html">Meine ausgeliehenen Bücher</a></li>
+            </ul>
+            
+            <ul id="admin-menu" style="display: none;">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="books.html">Bücher</a></li>
+                <li><a href="bucherverwaltung.html">Bücherverwaltung</a></li>
+                <li><a href="schuler.html">Schüler</a></li>
+            </ul>
+        </nav>
+        <div class="user-profile">
+            <div class="profile-options">
+                <button class="dropdown-btn">
+                    <img id="userImage" src="" alt="User Photo" class="user-photo">
+                </button>
+                <div class="dropdown-content">
+                    <div class="profile-info">
+                        <span class="user-name">John Doe</span>
+                        <span class="user-role">Administrator</span> <!-- Optional role -->
+                    </div>
+                    <a href="#" onclick="editprofile()">Bearbeiten</a>
+                    <a href="#" onclick="logout()" >Logout</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+            <!-- Modal für Schüler -->
+            <div id="edit-prof" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeMod()">&times;</span>
+                    <h2 id="modal-title">Schüler hinzufügen</h2>
+                    <div id="alertBoxemail" class="alert edit_repeat" ></div>
+                    <form  >
+                        <input type="hidden" id="schuelerId"  required>
+                        <input type="hidden" id="current_bilder">
+
+                        <label for="vorname">Vorname:</label>
+                        <input type="text" id="vornames"  required>
+            
+                        <label for="nachname">Nachname:</label>
+                        <input type="text" id="nachnames"   required>
+            
+                        <label for="email">Email:</label>
+                        <input type="email" id="emails"  required>
+                            <label for="password" class="passwordField"></label>
+                            <input type="password" id="passwords" >
+                            <input type="file" id="bilder" name="bilder" accept="image/*"> 
+                        <button type="button" onclick="sendSchuelerData()" >Speichern</button>
+                    </form>
+                </div>
+            </div>
+</header>
+

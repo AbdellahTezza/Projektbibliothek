@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Statistik Dashboard</title>
+        <link rel="stylesheet" href="./css/styles.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+        <script src="js/include.js" defer></script>
+        <script src="js/script.js" defer></script>
+    </head>
+    <body>
+        <div id="header"></div>
+            <main>
+            <h2>Übersicht</h2>
+
+            <div class="dashboard-statistics">
+                <div class="stat-card books">
+                    <div class="icon"><i class="fas fa-book"></i></div>
+                    <h3>Bucher verfügbar</h3>
+                    <p id="book-count">Lädt...</p>
+                </div>
+
+                <div class="stat-card loans">
+                    <div class="icon"><i class="fas fa-book-reader"></i></div>
+                    <h3>Meine Ausleihen</h3>
+                    <p id="loan-count">Lädt...</p>
+                </div>
+
+                <div class="stat-card students">
+                    <div class="icon">
+                        <i class="fas fa-clock"></i> <!-- Bald fällige Bücher -->
+                    </div>
+                    <h3>Überfällige und in Kürze fällig werdende Bücher
+                    </h3>
+                    <p id="student-count">Lädt...</p>
+                </div>
+            </div>
+        </main>
+        <div id="footer"></div>
+    </body>
+</html>
