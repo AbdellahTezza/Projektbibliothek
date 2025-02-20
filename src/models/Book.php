@@ -58,10 +58,10 @@ public function updateBook($id, $titel, $autor, $isbn, $beschreibung, $bild) {
     $stmt->bindParam(':bild', $bild);
 
     if ($stmt->execute()) {
-        return ['success' => true, 'message' => 'تم تحديث الكتاب بنجاح'];
+        return ['success' => true, 'message' => 'Das Buch wurde erfolgreich aktualisiert'];
     }
+    return ['success' => false, 'message' => 'Ein Fehler ist beim Aktualisieren des Buches aufgetreten'];
 
-    return ['success' => false, 'message' => 'حدث خطأ أثناء تحديث الكتاب'];
 }
 
 private function getCurrentImage($id) {
@@ -98,6 +98,8 @@ private function getCurrentImage($id) {
                     b.id, 
                     b.titel, 
                     b.autor, 
+                    b.beschreibung,
+                    b.bild,
                     'Verfügbar' AS status_text 
                   FROM buecher b 
                   WHERE b.id NOT IN ( 

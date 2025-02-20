@@ -81,7 +81,7 @@ nav ul li a:hover {
 .profile-info {
 	display: flex;
 	flex-direction: column;
-	margin-right: 15px;
+	/* margin-right: 15px; */
 	padding: 20px 0;
 }
 
@@ -632,6 +632,7 @@ button.delete {
 .pagination-container {
 	text-align: center;
 	margin-top: 20px;
+	margin-bottom: 30px;
 }
 
 .pagination-btn {
@@ -700,13 +701,14 @@ button.delete {
 	/* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
 	font-size: .9rem;
 	font-weight: 600;
-	border: 1px solid #e3e6ed;
+	border: 1px solid #40b003;
 }
 
 .add-book-btn:hover {
-	background-color: #e3e6ed;
+	background-color: #4fbf34;
 	/* box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); */
 	transform: translateY(-2px);
+	color: #ffffff;
 }
 
 .add-book-btn:active {
@@ -1067,18 +1069,50 @@ button {
 	color: rgb(19, 222, 185);
 	padding: 6px;
 }
+span.status-text.ausgeliehen,
+span.status-text.verfugbar {
+	padding: 6px;
+	border-radius: 15px;
+	display:block;
+	text-align:center;
+	padding: 2px 8px;
+}
 
 span.verfugbar {
 	background-color: #d9fbd0;
 	padding: 6px;
 	border-radius: 15px;
 	border: 1px solid #90d67f;
-	text-transform: uppercase;
+
 	padding: 2px 8px;
 	color: #1c6c09;
 }
 
+span.verfugbar {
+	background-color: #d9fbd0;
+	padding: 6px;
+	border-radius: 15px;
+	border: 1px solid #90d67f;
+	padding: 2px 8px;
+	color: #1c6c09;
+}
 
+span.status-text.ausgeliehen {  
+	background-color:#ffefca;   
+	color:#bc3803;   
+	border:1px solid #ffcc85;
+}
+span.tage-bis-rueckgabe.ausgeliehen {   
+	color:#bc3803;
+}
+span.status-text.uberfallig{
+	background-color:#ffd7ca;   
+	color:#bc4403;   
+	border:1px solid #ff8585;
+}
+span.tage-bis-rueckgabe.uberfallig {   
+	color:#bc0303;
+}
 td.upcoming {
 	color: #1c6c09;
 }
@@ -1199,4 +1233,64 @@ i.fas.fa-user-graduate {
 	
 	.modal.login .modal-content {
 		box-shadow: none;
+	}
+	.avatar.avatar-m {
+		height: 2rem;
+		width: 2rem;
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 25px;
+	}
+	
+	img#userSchule {
+		width: 100%;
+		height: 100%;
+		border: 0px;
+		display: block;
+	}
+
+	a.fw-semibold {
+		color: rgb(73 128 255);
+		text-transform: lowercase;
+	}
+	button.borrowBook:hover, button.borrow-btn:hover {
+		background-color: #25b003;
+		color: #ffffff;
+		transform: translateY(-2px);
+	}
+
+	span.tage-bis-rueckgabe.verfugbar {
+		display: none;
+	}
+	div.block_buecher{
+		border: 1px solid #cbd0dd8a;
+		/* display: inline-block; */
+		padding: 6px;
+		border-radius: 4px;
+		/* width: 20%; */
+		/* margin-right: 25px; */
+	}
+	.block_buecher_bilder {
+		max-height: 50px !important;
+		overflow: hidden;
+		width: 50px !important;
+		height: 50px !important;
+		display: block;
+	}
+	
+	img.book-image {
+		width: 100%;
+		display: block;
+	}
+
+	td.block_buecher {
+		display: flex;
+		align-items: center;
+		border: 0;
+	}
+	
+	.block_buecher_titel {
+		display: block;
+		margin-left: 21px;
 	}

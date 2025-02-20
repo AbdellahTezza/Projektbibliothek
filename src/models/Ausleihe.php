@@ -64,8 +64,10 @@ class Ausleihe {
     
         $query = "SELECT SQL_CALC_FOUND_ROWS 
                              b.id AS buch_id, 
+                             b.bild,
                              b.titel, 
                              b.autor, 
+
                              s.vorname, 
                              s.nachname, 
                              a.rueckgabedatum, 

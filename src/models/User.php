@@ -7,32 +7,54 @@ class User {
         $this->db = $db;
     }
 
+    // public function createUser($vorname, $nachname, $email, $password, $userType, $bild = null) {
+    //     $table = ($userType === 'admin') ? "admins" : "schueler";
+    
+    //     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+    //     $query = "INSERT INTO schueler (vorname, nachname, email, passwort_hash, bild) VALUES (:vorname, :nachname, :email, :passwort, :bild)";
+    //     $stmt = $this->db->prepare($query);
+        
+    //     $stmt->bindParam(':vorname', $vorname);
+    //     $stmt->bindParam(':nachname', $nachname);
+    //     $stmt->bindParam(':email', $email);
+    //     $stmt->bindParam(':passwort', $password);
+    //     $stmt->bindParam(':bild', $bild); 
+    //     if ($stmt->execute()) {
+    //         // return ["success" => true, "redirect" => "../public/dashboard.html", "message" => "Registrierung erfolgreich!"];
+
+    //     } else {
+    //         // return ["success" => false, "message" => "Fehler bei der Registrierung!"];
+
+    //     }
+    // }
+
     public function createUser($vorname, $nachname, $email, $password, $userType, $bild = null) {
         $table = ($userType === 'admin') ? "admins" : "schueler";
     
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-        $query = "INSERT INTO schueler (vorname, nachname, email, passwort_hash, bild) VALUES (:vorname, :nachname, :email, :passwort, :bild)";
+        $query = "INSERT INTO $table (vorname, nachname, email, passwort_hash, bild) VALUES (:vorname, :nachname, :email, :passwort, :bild)";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':vorname', $vorname);
         $stmt->bindParam(':nachname', $nachname);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':passwort', $hashedPassword);
-        $stmt->bindParam(':bild', $bild); 
+        $stmt->bindParam(':passwort', $password); // Hier korrigiert
+        $stmt->bindParam(':bild', $bild);
+    
         if ($stmt->execute()) {
-            return ["success" => true, "redirect" => "../public/dashboard.html", "message" => "Registrierung erfolgreich!"];
+            return ["success" => true, "redirect" => "../public/login.html", "message" => "Registrierung erfolgreich!"];
+            // return [ "message" => "Registrierung erfolgreich!"];
 
         } else {
             return ["success" => false, "message" => "Fehler bei der Registrierung!"];
-
         }
     }
-
     
     
     public function getAllSchueler($search = '', $limit = 10, $offset = 0) {
-        $query = "SELECT id, vorname, nachname, email FROM schueler WHERE 1";
+        $query = "SELECT id, vorname, nachname, email, bild FROM schueler";
     
         if (!empty($search)) {
             $query .= " AND (vorname LIKE :search OR nachname LIKE :search OR email LIKE :search)";
