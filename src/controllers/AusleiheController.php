@@ -28,12 +28,12 @@ class AusleiheController {
 
     public function borrowBook($buchId, $schuelerId) {
         $result = $this->ausleiheModel->borrowBook($buchId, $schuelerId);
-        echo json_encode($result);
+        return $result;
     }
 
     public function returnBook($buchId, $schuelerId) {
         $result = $this->ausleiheModel->returnBook($buchId, $schuelerId);
-        echo json_encode($result);
+        return $result;
     }
 
     public function getCounts() {

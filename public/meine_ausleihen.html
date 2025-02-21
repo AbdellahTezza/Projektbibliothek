@@ -15,13 +15,16 @@
       <div class="search-container">        
          <input type="text" id="searchInput" placeholder="Nach Buch suchen..." onkeyup="fetchMeineAusgeliehenenBuecher(this.value, 1)">
       </div>
+      <div id="alertBox" class="alert"></div>
+
       <table>
          <thead>
             <tr>
                <th>Titel</th>
                <th>Autor</th>
                <th>Ausleihdatum</th>
-               <th>Verbleibende Tage</th>
+               <th>Status</th>
+               <th>Tag: Tage bis Rückgabe	</th>
                <th>Aktion</th>
             </tr>
          </thead>

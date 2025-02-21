@@ -187,7 +187,8 @@ class Ausleihe {
    $query = "SELECT a.id AS ausleihe_id,
                  a.buch_id, 
                  b.titel, 
-                 b.autor, 
+                 b.autor,
+                 b.bild, 
                  a.ausleihdatum, 
                  a.rueckgabedatum, 
                  DATEDIFF(a.rueckgabedatum, CURDATE()) AS tage_bis_rueckgabe,
@@ -234,8 +235,10 @@ class Ausleihe {
     public function getDueAndUpcomingBooks($search, $limit, $offset, $schueler_id, $tageBisFaellig) {
         $query = "SELECT  
                     a.id AS ausleihe_id, 
+                    a.buch_id, 
                     b.titel, 
                     b.autor, 
+                    b.bild,
                     a.ausleihdatum, 
                     a.rueckgabedatum, 
                     DATEDIFF(a.rueckgabedatum, CURDATE()) AS tage_bis_rueckgabe,

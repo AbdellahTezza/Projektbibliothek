@@ -30,6 +30,32 @@
             <div id="pagination" style="margin-top: 20px;">
             </div>
          </section>
+         <div id="showBookDetails" class="modal">
+            <div class="modal-content">
+               <span class="close" onclick="closeModal()">&times;</span>
+               <h2 id="modalTitle">Buch ausleihen</h2>
+               <form id="borrowForm">
+                  <div class="head_bild">
+                     <div class="block_buecher_details">
+                     <img id="buchcover" src="public/bilder/default-book.png" alt="Buchcover">
+                     </div>
+                  </div>
+                  <!-- Anzeige für Rückgabe -->
+                  <div id="schuelerInfoContainer">
+                     <div class="head_block">
+                        <p><strong>Titel:</strong> <span id="buchTitel"></span></p>
+                        <p><strong>Autor:</strong> <span id="buchAutor"></span></p>
+                     </div>
+                     <p><span id="buchBeschreibung"></span></p>
+                  </div>
+                  <input type="hidden" id="buchId" name="buch_id">
+                  <div class="modal_buttons">
+                     <button type="button" onclick="closeModal()">Schließen</button>
+                     <button type="button" id="modalSubmitBtn"> Buch zurückgeben </button>
+                  </div>
+               </form>
+            </div>
+         </div>
       </main>
       <div id="footer"></div>
       <script src="js/script.js"></script>

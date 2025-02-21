@@ -908,7 +908,7 @@ button {
 
 	thead {
 		width: 100% !important;
-		display: inline-table;
+		display: contents;
 	}
 
 	table {
@@ -1069,8 +1069,7 @@ button {
 	color: rgb(19, 222, 185);
 	padding: 6px;
 }
-span.status-text.ausgeliehen,
-span.status-text.verfugbar {
+span.status-text.ausgeliehen, span.status-text.verfugbar, span.status-text.uberfallig {
 	padding: 6px;
 	border-radius: 15px;
 	display:block;
@@ -1293,4 +1292,70 @@ i.fas.fa-user-graduate {
 	.block_buecher_titel {
 		display: block;
 		margin-left: 21px;
+	}
+
+
+	span.status-text.uberfallig {
+		background-color: #ff00001a;
+		color: red;
+		border: 1px solid #ff00006b;
+	}
+	
+	span.tage-bis-rueckgabe.uberfallig {
+		color: red;
+	}
+	.block_buecher_details {
+		width: 72%;
+		display: block;
+		overflow: hidden;
+		height: auto;
+		max-height: 249px;
+		margin: auto;
+	}
+	
+	img#buchcover {
+		display: block;
+		width: 100%;
+	}
+	
+	.head_bild {
+		border: 1px solid #cbd0dd8a;
+		padding: 6px;
+		border-radius: 4px;
+	}
+	.modal_buttons {
+		display: flex;
+	}
+	
+	.modal_buttons button#modalSubmitBtn  {
+		margin-left: 5px;
+	}
+
+	div#showBookDetails .head_block {
+		display: block;
+		padding: 0;
+	}
+	
+	div#showBookDetails .head_block p {
+		width: 100%;
+	}
+	
+	div#showBookDetails button {
+		font-size: 14px;
+	}
+
+	span#buchBeschreibung {
+		display: block;
+		text-align: justify;
+		max-height: 90px;
+		overflow-y: auto;
+		padding-right: 11px;
+	}
+
+	div#pagination-container {
+		margin-bottom: 43px;
+	}
+
+	div#pagination {
+		margin-bottom: 30px;
 	}

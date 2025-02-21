@@ -538,7 +538,8 @@ if (window.location.href.includes("bucher.html")) {
                      <td><span class="verfugbar">${book.status_text}</span></td>
                      <td>
                         ${book.status_text === "Verfügbar" 
-                           ? `<button class="borrowBook" onclick="borrowBook(${book.id})">Ausleihen</button>` 
+                           ? `<button class="borrowBook" onclick="borrowBook(${book.id})">Ausleihen</button> 
+                           <button class="borrowBook" onclick="showBookDetails(${book.id}, '${book.titel}', '${book.autor}', '${fullBookImagePath}', '${book.beschreibung}')">Buchdetails</button>` 
                            : `-`}
                      </td>
                   </tr>`;
@@ -593,9 +594,27 @@ if (window.location.href.includes("bucher.html")) {
       fetchBooks(this.value);
    });
 
-   function detailsbucher() {
-      document.getElementById("detailsbuch").style.display = "flex";
+   function showBookDetails(id, titel, autor, fullBookImagePath, beschreibung) {
+      document.getElementById("showBookDetails").style.display = "flex";
+      document.getElementById("buchTitel").innerText = titel;
+      document.getElementById("buchAutor").innerText = autor;
+      document.getElementById("buchcover").src = fullBookImagePath;
+      let beschreibungElement = document.getElementById("buchBeschreibung");
+      if (beschreibungElement) {
+         beschreibungElement.innerText = beschreibung ? beschreibung : "Keine Beschreibung verfügbar";
+      }
+      document.getElementById("buchId").value = id;
+
    }
+   // Modal schließen
+   function closeModal() {
+      document.getElementById("showBookDetails").style.display = "none";
+   }
+
+   document.getElementById("modalSubmitBtn").addEventListener("click", function() {
+      const buchId = document.getElementById("buchId").value;
+         borrowBook(buchId);
+   });
 
    function borrowBook(buch_id) {
       fetch('../src/views/schueler.php?action=borrowBook', {
@@ -612,6 +631,7 @@ if (window.location.href.includes("bucher.html")) {
             // alert(data.message);  // Zeigt die Antwortnachricht an (z.B. Erfolg oder Fehler)
             if (data.success) {
                showAlert(data.message, "success");
+               closeModal(); // Modal nach erfolgreichem Ausleihen schließen
                fetchBooks(); // Die Bücherliste nach dem Ausleihen erneut laden
             }
          })
@@ -871,19 +891,48 @@ if (window.location.href.includes("meine_ausleihen.html")) {
             let tableContent = '';
 
             data.books.forEach(book => {
-               let statusClass = '';
-               if (book.rueckgabe_status.includes("Überfällig")) {
-                  statusClass = "overdue"; // Red color for overdue
-               } else if (book.rueckgabe_status.includes("Verbleibende")) {
-                  statusClass = "upcoming"; // Orange color for upcoming
+               // let statusClass = '';
+               // if (book.rueckgabe_status.includes("Überfällig")) {
+               //    statusClass = "overdue"; // Red color for overdue
+               // } else if (book.rueckgabe_status.includes("Verbleibende")) {
+               //    statusClass = "upcoming"; // Orange color for upcoming
+               // }
+
+               const baseUrl = "http://localhost/schulbibliothek/";
+               let statusClass = ''; // Klasse für den Status
+               let statusText = '';  // Anzeige-Text für den Status
+               let bookImagePath = book.bild ? book.bild.replace("../../", "") : "public/bilder/default-book.png";
+               let fullBookImagePath = baseUrl + bookImagePath;
+               // Status bestimmen
+                if (book.rueckgabe_status.includes("Überfällig")) {
+                  statusClass = 'uberfallig';
+                  statusText = 'Überfällig';
+               } else {
+                  statusClass = 'ausgeliehen';
+                  statusText = 'Ausgeliehen';
                }
+
 
                tableContent += `
                  <tr>
-                     <td>${book.titel}</td>
+                        <td class="block_buecher">
+                        <div class="block_buecher">
+                        <span class="block_buecher_bilder">
+                        <img src="${fullBookImagePath}" alt="Buchcover" class="book-image">
+                        </span>
+                        </div>
+                        <div class="block_buecher_titel">
+                        ${book.titel}
+                        </div>
+                        </td>
                      <td>${book.autor}</td>
                      <td>${book.ausleihdatum}</td>
-                     <td class="${statusClass}" >${book.rueckgabe_status}</td>
+                     <td>
+                           <span class="status-text ${statusClass}">${statusText}</span> 
+                      </td>
+                      <td>
+                           <span class="tage-bis-rueckgabe ${statusClass}">${book.rueckgabe_status}</span>
+                        </td>
                      <td><button class="return-btn" onclick="openBorrowModal('${book.buch_id}', '${book.titel}', '${book.autor}', '${book.tage_bis_rueckgabe}')"> Zurückgeben</button></td>
                  </tr>
              `;
@@ -980,21 +1029,44 @@ if (window.location.href.includes("meine_ausgeliehenen_buecher.html")) {
             let tableContent = "";
 
             data.books.forEach(buch => {
-               // let statusClass = buch.status === "überfällig" ? "status-ueberfaellig" : "status-bald-ueberfaellig";
-               // Überfällig
-               // Bald überfällig in
-               let statusClass = buch.rueckgabe_status.includes("Überfällig") ?
-                  "status-ueberfaellig" :
-                  buch.rueckgabe_status.includes("Bald überfällig") ?
-                  "status-bald-ueberfaellig" :
-                  "";
+                  const baseUrl = "http://localhost/schulbibliothek/";
+                  let statusClass = ''; // Klasse für den Status
+                  let statusText = '';  // Anzeige-Text für den Status
+                  let bookImagePath = buch.bild ? buch.bild.replace("../../", "") : "public/bilder/default-book.png";
+                  let fullBookImagePath = baseUrl + bookImagePath;
+                  if (buch.rueckgabe_status.includes("Bald überfällig")) {
+                     statusClass = 'ausgeliehen';
+                     statusText = 'Ausgeliehen';
+                  } else if (buch.rueckgabe_status.includes("Überfällig seit")) {
+                     statusClass = 'uberfallig';
+                     statusText = 'Überfällig';
+                  } 
+
                tableContent += `
                      <tr>
-                         <td>${buch.titel}</td>
+			        <td class="block_buecher">
+                        <div class="block_buecher">
+                        <span class="block_buecher_bilder">
+                        <img src="${fullBookImagePath}" alt="Buchcover" class="book-image">
+                        </span>
+                        </div>
+                        <div class="block_buecher_titel">
+                        ${buch.titel}
+                        </div>
+                        </td>
                          <td>${buch.autor}</td>
                          <td>${buch.ausleihdatum}</td>
                          <td>${buch.rueckgabedatum}</td>
-                         <td class="${statusClass}">${buch.rueckgabe_status}</td>
+                        <td>
+                           <span class="status-text ${statusClass}">${statusText}</span> 
+                        </td>
+
+                         <td><span class="tage-bis-rueckgabe ${statusClass}">${buch.rueckgabe_status} </span></td>
+                        <td>
+                           ${buch.rueckgabe_status.includes("Überfällig") 
+                              ? `<button class="return-btn" onclick="returnBook(${buch.buch_id})" data-id="${buch.buch_id}">Zurückgeben</button>`
+                              : `-`}
+                        </td>
                      </tr>
                  `;
             });
@@ -1005,6 +1077,20 @@ if (window.location.href.includes("meine_ausgeliehenen_buecher.html")) {
          .catch(error => {
             console.error("Fehler beim Laden der Daten:", error);
          });
+   }
+
+   function returnBook(buchId) {
+      fetch('../src/views/ausleihe.php', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `action=return&buch_id=${buchId}`
+         }).then(response => response.json())
+         .then(data => {  
+            showAlert(data.message, "success");  
+            fetchDueAndUpcomingBooks();
+        });
    }
 
    function updatePagination(totalBooks, currentPage, fetchFunction) {
@@ -1025,6 +1111,8 @@ if (window.location.href.includes("meine_ausgeliehenen_buecher.html")) {
    }
 
    document.addEventListener("DOMContentLoaded", () => fetchDueAndUpcomingBooks());
+
+
 }
 
 
@@ -1052,7 +1140,6 @@ if (window.location.href.includes("bucherverwaltung.html")) {
          submitBtn.textContent = "Buch zurückgeben";
          submitBtn.setAttribute("onclick", `returnBook(${buchId}, ${schuelerId})`);
       } else {
-         // Fall: Ausleihen
          modalTitle.textContent = "Buch ausleihen";
          schuelerSelectContainer.style.display = "block";
          schuelerInfoContainer.style.display = "none";
@@ -1205,13 +1292,6 @@ if (window.location.href.includes("bucherverwaltung.html")) {
                }
                
                document.getElementById("pagination").innerHTML = paginationContent;
-               
-
-               // Überprüfen, ob das Pagination-Element existiert
-               // const paginationElement = document.getElementById('pagination');
-               // if (paginationElement) {
-               //    paginationElement.innerHTML = paginationContent;
-               // }
 
             }
 
