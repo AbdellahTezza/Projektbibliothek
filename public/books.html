@@ -9,9 +9,11 @@
     <script src="js/include.js" defer></script>
 </head>
 <body>
+    <div id="loader">
+        <div class="spinner"></div>
+       </div>
+       <div id="content">
     <div id="header"></div>
-    
-    
     <main>
         <div class="book-list">
 
@@ -37,14 +39,9 @@
                 </thead>
                 <tbody id="table-body"></tbody> <!-- WICHTIG: ID muss vorhanden sein -->
             </table>
-            
-
             <!-- <div id="pagination" class="pagination-container"></div> -->
             <div id="pagination-container"></div>
-
         </div>
-
-
 
 <div id="bookModal" class="modal">
     <div class="modal-content">
@@ -75,6 +72,6 @@
     </main>
 
     <div id="footer"></div>
-
+</div>
 </body>
 </html>

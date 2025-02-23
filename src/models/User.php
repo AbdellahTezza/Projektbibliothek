@@ -54,31 +54,45 @@ class User {
     
     
     public function getAllSchueler($search = '', $limit = 10, $offset = 0) {
-        $query = "SELECT id, vorname, nachname, email, bild FROM schueler";
+        // Start the base query
+        $query = "SELECT id, vorname, nachname, email, bild FROM schueler WHERE 1=1";
     
+        // If a search term is provided, add WHERE conditions
         if (!empty($search)) {
             $query .= " AND (vorname LIKE :search OR nachname LIKE :search OR email LIKE :search)";
         }
+        
+        // Append ORDER, LIMIT, and OFFSET
         $query .= " ORDER BY nachname LIMIT :limit OFFSET :offset";
     
         $stmt = $this->db->prepare($query);
+    
+        // Bind search parameter if needed
         if (!empty($search)) {
             $searchParam = "%" . $search . "%";
             $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
         }
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    
+        // Use bindValue() for LIMIT and OFFSET
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+    
         $stmt->execute();
         $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $countQuery = "SELECT COUNT(*) as total FROM schueler WHERE 1";
+    
+        // Get the total count of students
+        $countQuery = "SELECT COUNT(*) as total FROM schueler WHERE 1=1";
+    
         if (!empty($search)) {
             $countQuery .= " AND (vorname LIKE :search OR nachname LIKE :search OR email LIKE :search)";
         }
     
         $countStmt = $this->db->prepare($countQuery);
+        
         if (!empty($search)) {
             $countStmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
         }
+    
         $countStmt->execute();
         $totalStudents = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
     
@@ -87,6 +101,7 @@ class User {
             'totalStudents' => $totalStudents
         ];
     }
+    
     
     public function getUserByEmail($email, $userType) {
         $table = ($userType === 'admin') ? "admins" : "schueler";

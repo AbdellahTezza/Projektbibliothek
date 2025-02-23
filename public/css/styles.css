@@ -4,6 +4,7 @@ body {
 	padding: 0;
 	background-color: #f4f4f4;
 	text-align: center;
+	overflow-x: hidden;
 }
 h5 {
     font-size: .8rem !important;
@@ -19,6 +20,34 @@ a {
 	color: #757c91;
 }
 
+.spinner {
+   border: 8px solid #f3f3f3;
+   border-top: 8px solid #3498db;
+   border-radius: 50%;
+   width: 50px;
+   height: 50px;
+   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+}
+
+div#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 10000;
+}
 /* General header styling */
 .header {
 	display: flex;
@@ -993,6 +1022,7 @@ i.fas.fa-book-reader {
 	gap: 20px;
 	justify-items: center;
 	margin-top: 30px;
+	margin-bottom: 50px;
 }
 
 /* Statistik-Karten */
@@ -1129,9 +1159,10 @@ td.overdue {
 }
 
 main {
-	min-height: 100vh;
+	/* min-height: 100vh; */
 	/* display: table-cell; */
 	padding-top: 19px !important;
+	padding-bottom: 30px;
 }
 
 

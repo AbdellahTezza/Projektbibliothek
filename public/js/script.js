@@ -1,3 +1,9 @@
+window.onload = function() {
+   setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("content").style.display = "block";
+   }, 1500); // Attendre 1.5 secondes avant d'afficher la page
+};
 document.addEventListener("DOMContentLoaded", () => {
    // Code Login 
    let loginForm = document.getElementById("loginForm");
@@ -56,16 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
          let result = await response.json();
 
          if (result.success) {
-            // alert(result.message);
-            // document.getElementById("registerMessage").textContent = result.message;
             showAlert(result.message, "success");
             setTimeout(() => {
                window.location.href = result.redirect;
-            }, 2000); // 2 Sekunden warten vor der Weiterleitung
+            }, 2000); 
          } else {
-            //document.getElementById("registerMessage").textContent = result.message;
+
             showAlert(result.message, "error");
-            //  alert(result.message); // Fehler anzeigen
+
          }
       });
    }
@@ -102,10 +106,8 @@ if (window.location.href.includes("dashboard_admin.html")) {
 function showAlert(message, type) {
    let alertBox = document.getElementById("alertBox");
 
-   // Entferne vorherige Klassen
    alertBox.className = "alert";
 
-   // Füge die richtige Klasse hinzu
    if (type === "error") {
       alertBox.classList.add("alert-error");
    } else if (type === "success") {
@@ -116,10 +118,9 @@ function showAlert(message, type) {
       alertBox.classList.add("alert-warning");
    }
 
-   alertBox.textContent = message; // Nachricht setzen
-   alertBox.classList.add("show-alert"); // Einblende-Animation
+   alertBox.textContent = message; 
+   alertBox.classList.add("show-alert"); 
 
-   // Automatisches Ausblenden nach 3 Sekunden
    setTimeout(() => {
       alertBox.classList.remove("show-alert");
    }, 3000);
@@ -131,11 +132,9 @@ function mainAlert(message, type) {
    let alertBox = document.getElementById("alertBoxRepeat");
    let alertBoxemail = document.getElementById("alertBoxemail");
 
-   // Entferne vorherige Klassen
    alertBox.className = "alert";
    alertBoxemail.className = "alert";
 
-   // Füge die richtige Klasse hinzu
    if (type === "error") {
       alertBox.classList.add("alert-error");
       alertBoxemail.classList.add("alert-error");
@@ -151,38 +150,35 @@ function mainAlert(message, type) {
       alertBoxemail.classList.add("alert-warning");
    }
 
-   alertBox.textContent = message; // Nachricht setzen
-   alertBox.classList.add("show-alert"); // Einblende-Animation
+   alertBox.textContent = message; 
+   alertBox.classList.add("show-alert"); 
 
-   // Automatisches Ausblenden nach 3 Sekunden
    setTimeout(() => {
       alertBox.classList.remove("show-alert");
    }, 3000);
 }
 
 
-// Funktion zum Laden der Bücher und zur Anzeige der richtigen Seite
 if (window.location.href.includes("books.html")) {
    console.log("Books ");
-   const rowsPerPage = 5; // Anzahl der Zeilen pro Seite
+   const rowsPerPage = 5; 
    let currentPage = 1;
-   let books = []; // Hier werden die Bücher gespeichert
+   let books = []; 
 
-   // Lade die Bücher
+
    function loadBooks() {
-      fetch("../src/views/Books.php?action=getBooks")
+      fetch("../src/views/books.php?action=getBooks")
          .then(response => response.json())
          .then(data => {
-            console.log(data); // Überprüfe, ob die Daten korrekt zurückgegeben werden
+            console.log(data); 
             books = data;
             console.log("books", books);
-            displayPage(currentPage); // Anzeige der aktuellen Seite
-            setupPagination(books.length); // Paginierung einrichten für alle Bücher
+            displayPage(currentPage); 
+            setupPagination(books.length); 
          })
          .catch(error => console.error("Fehler beim Laden der Bücher:", error));
    }
 
-   // Funktion zur Anzeige der Bücher auf der Seite
    function displayPage(page) {
       const tableBody = document.getElementById("table-body");
       tableBody.innerHTML = "";
@@ -198,7 +194,7 @@ if (window.location.href.includes("books.html")) {
       if (filteredBooks.length === 0) {
          // Keine Bücher gefunden
          tableBody.innerHTML = '<tr><td colspan="4">Keine Bücher gefunden</td></tr>';
-         updatePagination(0, page); // Keine Seitenanzeige, wenn keine Bücher gefunden
+         updatePagination(0, page); 
          return;
       }
 
@@ -207,11 +203,11 @@ if (window.location.href.includes("books.html")) {
       const booksToShow = filteredBooks.slice(startIndex, endIndex);
 
       booksToShow.forEach(book => {
-         const baseUrl = "http://localhost/schulbibliothek/";
-         let statusClass = ''; // Klasse für den Status
-         let statusText = '';  // Anzeige-Text für den Status
-         let bookImagePath = book.bild ? book.bild.replace("../../", "") : "public/bilder/default-book.png";
-         let fullBookImagePath = baseUrl + bookImagePath;
+        
+         let statusClass = ''; 
+         let statusText = '';  
+         let bookImagePath = book.bild ? book.bild.replace("../../public/", "") : "bilder/default-book.png";
+         let fullBookImagePath =  bookImagePath;
 
          const row = document.createElement("tr");
          row.id = `book_${book.id}`;
@@ -237,20 +233,18 @@ if (window.location.href.includes("books.html")) {
          tableBody.appendChild(row);
       });
 
-      // Paginierung aktualisieren
       updatePagination(filteredBooks.length, page);
    }
 
-   // Funktion zur Paginierung
    function updatePagination(totalBooks, currentPage) {
       const paginationContainer = document.getElementById("pagination-container");
-      paginationContainer.innerHTML = ""; // Zuerst alle bestehenden Paginierungs-Elemente löschen
+      paginationContainer.innerHTML = ""; 
 
       if (totalBooks === 0) {
-         paginationContainer.style.display = "none"; // Wenn keine Bücher angezeigt werden, Paginierung ausblenden
+         paginationContainer.style.display = "none"; 
          return;
       } else {
-         paginationContainer.style.display = "block"; // Paginierung sichtbar machen
+         paginationContainer.style.display = "block"; 
       }
 
       const totalPages = Math.ceil(totalBooks / rowsPerPage);
@@ -268,17 +262,16 @@ if (window.location.href.includes("books.html")) {
       paginationContainer.innerHTML = paginationContent;
    }
 
-   // Funktion zur Seitenänderung
    function changePage(page) {
       currentPage = page;
-      displayPage(currentPage); // Anzeige der neuen Seite
-      setupPagination(books.length); // Paginierung nach dem Wechsel aktualisieren
+      displayPage(currentPage); 
+      setupPagination(books.length); 
    }
 
    // Funktion zum Setup der Paginierung
    function setupPagination(totalBooks) {
       const pagination = document.getElementById("pagination");
-      pagination.innerHTML = ""; // Paginierung zurücksetzen
+      pagination.innerHTML = ""; 
 
       const totalPages = Math.ceil(totalBooks / rowsPerPage);
       for (let i = 1; i <= totalPages; i++) {
@@ -289,26 +282,24 @@ if (window.location.href.includes("books.html")) {
          button.addEventListener("click", () => {
             currentPage = i;
             displayPage(currentPage);
-            setupPagination(totalBooks); // Paginierung nach dem Wechsel aktualisieren
+            setupPagination(totalBooks); 
          });
          pagination.appendChild(button);
       }
    }
 
-   // Suchfunktion aktivieren
    document.getElementById("searchInput").addEventListener("input", () => {
-      displayPage(currentPage); // Nach jeder Eingabe die Anzeige aktualisieren
-      setupPagination(books.length); // Paginierung neu einrichten, wenn gesucht wird
+      displayPage(currentPage); 
+      setupPagination(books.length); 
    });
-
-
-   // Funktion zum Öffnen des Modals (Bearbeiten oder Hinzufügen)
 
    function openModal(bookId) {
 
-      console.log('Buch-ID:', books); // Überprüfe den Inhalt des books-Arrays
-      console.log('Buch-ID:', bookId); // Überprüfe, ob die ID korrekt übergeben wird
-      const book = books.find(b => b.id === String(bookId)); // Um den Stringvergleich zu erzwingen
+      console.log('Buch-ID:', books); 
+      console.log('Buch-ID:', bookId); 
+      const book = books.find(b => b.id === String(bookId)); 
+      //const book = books.find(b => b.id === Number(bookId));
+
       console.log('Gefundenes Buch:', book);
       const modal = document.getElementById("bookModal");
       const modalTitle = document.getElementById("modal-title");
@@ -323,7 +314,6 @@ if (window.location.href.includes("books.html")) {
          document.getElementById("beschreibung").value = book.beschreibung;
 
       } else {
-         // Neues Buch hinzufügen
          modalTitle.textContent = "Buch hinzufügen";
          document.getElementById("bookForm").reset(); // Formular zurücksetzen
       }
@@ -332,22 +322,19 @@ if (window.location.href.includes("books.html")) {
    }
 
 
-   // Modal schließen
    function closeModal() {
       document.getElementById("bookModal").style.display = "none";
    }
 
-   // Close-Button für das Modal
    const closeModalBtn = document.querySelector('.close');
    closeModalBtn.onclick = function () {
-      closeModal(); // Modal schließen
+      closeModal(); 
    };
 
-   // Schließen durch Klick außerhalb des Modals
    window.onclick = function (event) {
       const modal = document.getElementById("bookModal");
       if (event.target === modal) {
-         closeModal(); // Modal schließen
+         closeModal(); 
       }
    };
 
@@ -370,20 +357,20 @@ if (window.location.href.includes("books.html")) {
          formData.append("bild", bild);
       }
 
-      let url = "../src/views/Books.php?action=addBook";
+      let url = "../src/views/books.php?action=addBook";
       if (bookId) {
-         url = `../src/views/Books.php?action=updateBook&id=${bookId}`;
+         url = `../src/views/books.php?action=updateBook&id=${bookId}`;
       }
 
       fetch(url, {
             method: "POST",
             body: formData,
          })
-         .then(response => response.text()) // Use .text() to see the raw response
+         .then(response => response.text())
          .then(data => {
-            console.log(data); // Log the raw response from the server
+            //console.log(data); 
             try {
-               const result = JSON.parse(data); // Manually parse the response
+               const result = JSON.parse(data);
                showAlert(result.message, "success");
                closeModal();
                loadBooks();
@@ -395,64 +382,9 @@ if (window.location.href.includes("books.html")) {
    });
 
 
-   //  // Formular-Verarbeitung (Speichern von Buch)
-   //  document.getElementById("bookForm").addEventListener("submit", function (event) {
-   //     event.preventDefault();
-
-   //     const bookId = document.getElementById("bookId").value;
-   //     const title = document.getElementById("title").value;
-   //     const author = document.getElementById("author").value;
-   //     const isbn = document.getElementById("isbn").value;
-
-   //     const data = {
-   //        titel: title,
-   //        autor: author,
-   //        isbn: isbn
-   //     };
-   //    //  alert(bookId);
-   //     if (bookId) {
-   //        // Buch bearbeiten
-   //        fetch(`../src/views/Books.php?action=updateBook&id=${bookId}`, {
-   //              method: "POST",
-   //              headers: {
-   //                 "Content-Type": "application/json"
-   //              },
-   //              body: JSON.stringify(data),
-   //           })
-   //           .then(response => response.json())
-   //           .then(result => {
-   //              // alert(result.message);
-   //              showAlert(result.message, "success");
-   //              books = result; // Hier wird das books-Array befüllt
-
-   //              closeModal(); // Modal schließen
-   //              loadBooks(); // Buchliste aktualisieren
-   //           })
-   //           .catch(error => console.error("Fehler beim Bearbeiten des Buches:", error));
-   //     } else {
-   //        // Neues Buch hinzufügen
-   //        fetch("../src/views/Books.php?action=addBook", {
-   //              method: "POST",
-   //              headers: {
-   //                 "Content-Type": "application/json"
-   //              },
-   //              body: JSON.stringify(data),
-   //           })
-   //           .then(response => response.json())
-   //           .then(result => {
-   //              // alert(result.message);
-   //              showAlert(result.message, "success");
-   //              closeModal(); // Modal schließen
-   //              loadBooks(); // Buchliste aktualisieren
-   //           })
-   //           .catch(error => console.error("Fehler beim Hinzufügen des Buches:", error));
-   //     }
-   //  });
-
-   // Funktion zum Löschen eines Buches
    function deleteBook(bookId) {
       if (confirm('Buch wirklich löschen?')) {
-         fetch(`../src/views/Books.php?action=deleteBook&id=${bookId}`, {
+         fetch(`../src/views/books.php?action=deleteBook&id=${bookId}`, {
                method: 'POST',
                headers: {
                   'Content-Type': 'application/json'
@@ -460,19 +392,16 @@ if (window.location.href.includes("books.html")) {
             })
             .then(response => response.json())
             .then(data => {
-               console.log("Server Response:", data); // Debugging
-
                if (data.success) {
                   showAlert(data.message, "success");
-                  // Animiertes Entfernen der Zeile
                   let row = document.getElementById(`book_${bookId}`);
                   row.style.transition = "opacity 0.5s";
                   row.style.opacity = "0";
-                  loadBooks(); // Buchliste aktualisieren
+                  loadBooks(); 
                   setupPagination();
                   setTimeout(() => {
                      row.remove();
-                  }, 500); // Wartezeit für die Animation
+                  }, 500); 
                } else {
                   alert('Fehler beim Löschen des Buches: ' + data.message);
                }
@@ -481,7 +410,6 @@ if (window.location.href.includes("books.html")) {
       }
    }
 
-   // Initiales Laden der Bücher
    document.addEventListener('DOMContentLoaded', loadBooks);
 
 
@@ -506,21 +434,20 @@ if (window.location.href.includes("bucher.html")) {
             return res.json();
          })
          .then(data => {
-            console.log(data.totalBooks, "data"); // Überprüfen, ob es ein Array ist
+            console.log(data.totalBooks, "data"); 
             if (data.books.length === 0) {
                console.log("Keine Bücher gefunden!");
                const bookListElement = document.getElementById("book-list");
                if (bookListElement) {
                   bookListElement.innerHTML = '<tr><td colspan="4">Keine Bücher gefunden</td></tr>';
                }
-               return; // Frühzeitig abbrechen, wenn keine Bücher gefunden wurden
+               return; 
             }
-            const baseUrl = "http://localhost/schulbibliothek/";
-  
-            // Bücher rendern
+          
+
             let content = data.books.map(book => {
-               let bookImagePath = book.bild ? book.bild.replace("../../", "") : "public/bilder/default-book.png";
-               let fullBookImagePath = baseUrl + bookImagePath;
+               let bookImagePath = book.bild ? book.bild.replace("../../public/", "") : "bilder/default-book.png";
+               let fullBookImagePath =  bookImagePath;
                
                return ` 
                   <tr>
@@ -547,8 +474,6 @@ if (window.location.href.includes("bucher.html")) {
 
             document.getElementById("book-list").innerHTML = content;
 
-
-            // Paginierung mit Gesamtzahl der Bücher aktualisieren
             updatePagination(data.totalBooks);
          })
          .catch(error => {
@@ -562,34 +487,27 @@ if (window.location.href.includes("bucher.html")) {
 
    function updatePagination(totalBooks) {
       const pagination = document.getElementById("pagination");
-      pagination.innerHTML = ""; // Vorhandene Paginierungsbuttons löschen
+      pagination.innerHTML = ""; 
 
-      // Gesamtzahl der Seiten berechnen
       const totalPages = Math.ceil(totalBooks / booksPerPage);
-
-      // Seitenzahl-Buttons erstellen (1, 2, 3, 4, 5, ...)
       for (let i = 1; i <= totalPages; i++) {
          const button = document.createElement("button");
          button.innerText = i;
          button.classList.add("pagination-btn");
 
-         // Den aktuellen Seiten-Button als aktiv markieren
          if (i === currentPage) button.classList.add("active");
 
-         // Event Listener für den Klick auf die Seitenzahl
          button.addEventListener("click", () => {
             currentPage = i;
-            fetchBooks("", currentPage); // Bücher für die gewählte Seite laden
+            fetchBooks("", currentPage); 
          });
 
          pagination.appendChild(button);
       }
    }
 
-   // Initiales Laden der Bücher
    fetchBooks();
 
-   // Suchfeld-Event
    document.getElementById("searchInput").addEventListener("input", function () {
       fetchBooks(this.value);
    });
@@ -606,7 +524,7 @@ if (window.location.href.includes("bucher.html")) {
       document.getElementById("buchId").value = id;
 
    }
-   // Modal schließen
+
    function closeModal() {
       document.getElementById("showBookDetails").style.display = "none";
    }
@@ -650,30 +568,7 @@ if (window.location.href.includes("schuler.html")) {
       loadSchueler();
    });
 
-   //  function loadSchueler() {
-   //     fetch("../src/views/schueler.php?action=getSchueler")
-   //        .then(response => response.json())
-   //        .then(data => {
-   //           const tableBody = document.getElementById("table-body");
-   //           tableBody.innerHTML = "";
 
-   //           data.forEach(schueler => {
-   //              const row = document.createElement("tr");
-   //              row.innerHTML = `
-   //                   <td>${schueler.id}</td>
-   //                   <td>${schueler.vorname}</td>
-   //                   <td>${schueler.nachname}</td>
-   //                   <td>${schueler.email}</td>
-   //                   <td>
-   //                       <button class="edit" onclick="editSchueler(${schueler.id})">✏️ </button>
-   //                       <button class="delete" onclick="deleteSchueler(${schueler.id})">🗑️ </button>
-   //                   </td>
-   //               `;
-   //              tableBody.appendChild(row);
-   //           });
-   //        })
-   //        .catch(error => console.error("Fehler beim Laden der Schüler:", error));
-   //  }
    function loadSchueler(search = "", page = 1) {
       const searchTerm = document.getElementById("searchInput").value.trim();
 
@@ -701,15 +596,15 @@ if (window.location.href.includes("schuler.html")) {
                return;
             }
 
-            const baseUrl = "http://localhost/schulbibliothek/";
-            let imagePath = data.bild ? data.bild.replace("../../", "") : "public/bilder/default-profile.png";
-            const fullImagePath = baseUrl + imagePath;
+            //const baseUrl = "http://localhost/schulbibliothek/";
+            let imagePath = data.bild ? data.bild.replace("../../", "") : "bilder/default-profile.png";
+            const fullImagePath =  imagePath;
             userImage.src = fullImagePath;
             let tableContent = "";
 
             data.students.forEach(schueler => {
-               let schuelerImagePath = schueler.bild ? schueler.bild.replace("../../", "") : "public/bilder/default-profile.png";
-               let fullSchuelerImagePath = baseUrl + schuelerImagePath;
+               let schuelerImagePath = schueler.bild ? schueler.bild.replace("../../public/", "") : "bilder/default-profile.png";
+               let fullSchuelerImagePath =  schuelerImagePath;
                tableContent += `
                   <tr>
                       <td>${schueler.id}</td>
@@ -891,18 +786,11 @@ if (window.location.href.includes("meine_ausleihen.html")) {
             let tableContent = '';
 
             data.books.forEach(book => {
-               // let statusClass = '';
-               // if (book.rueckgabe_status.includes("Überfällig")) {
-               //    statusClass = "overdue"; // Red color for overdue
-               // } else if (book.rueckgabe_status.includes("Verbleibende")) {
-               //    statusClass = "upcoming"; // Orange color for upcoming
-               // }
 
-               const baseUrl = "http://localhost/schulbibliothek/";
-               let statusClass = ''; // Klasse für den Status
-               let statusText = '';  // Anzeige-Text für den Status
-               let bookImagePath = book.bild ? book.bild.replace("../../", "") : "public/bilder/default-book.png";
-               let fullBookImagePath = baseUrl + bookImagePath;
+               let statusClass = ''; 
+               let statusText = '';  
+               let bookImagePath = book.bild ? book.bild.replace("../../public/", "") : "bilder/default-book.png";
+               let fullBookImagePath =  bookImagePath;
                // Status bestimmen
                 if (book.rueckgabe_status.includes("Überfällig")) {
                   statusClass = 'uberfallig';
@@ -1029,11 +917,10 @@ if (window.location.href.includes("meine_ausgeliehenen_buecher.html")) {
             let tableContent = "";
 
             data.books.forEach(buch => {
-                  const baseUrl = "http://localhost/schulbibliothek/";
-                  let statusClass = ''; // Klasse für den Status
-                  let statusText = '';  // Anzeige-Text für den Status
-                  let bookImagePath = buch.bild ? buch.bild.replace("../../", "") : "public/bilder/default-book.png";
-                  let fullBookImagePath = baseUrl + bookImagePath;
+                  let statusClass = ''; 
+                  let statusText = '';  
+                  let bookImagePath = buch.bild ? buch.bild.replace("../../public/", "") : "bilder/default-book.png";
+                  let fullBookImagePath =  bookImagePath;
                   if (buch.rueckgabe_status.includes("Bald überfällig")) {
                      statusClass = 'ausgeliehen';
                      statusText = 'Ausgeliehen';
@@ -1117,7 +1004,7 @@ if (window.location.href.includes("meine_ausgeliehenen_buecher.html")) {
 
 
 if (window.location.href.includes("bucherverwaltung.html")) {
-   // Funktion zum Laden der Bücher basierend auf dem Suchbegriff
+
    function openBorrowModal(buchId, titel, autor, tageBisRueckgabe = "", vorname = "", nachname = "", schuelerId = "") {
       document.getElementById("buchId").value = buchId;
       document.getElementById("buchTitel").textContent = titel;
@@ -1227,8 +1114,8 @@ if (window.location.href.includes("bucherverwaltung.html")) {
                   const baseUrl = "http://localhost/schulbibliothek/";
                   let statusClass = ''; // Klasse für den Status
                   let statusText = '';  // Anzeige-Text für den Status
-                  let bookImagePath = book.bild ? book.bild.replace("../../", "") : "public/bilder/default-book.png";
-                  let fullBookImagePath = baseUrl + bookImagePath;
+                  let bookImagePath = book.bild ? book.bild.replace("../../public/", "") : "bilder/default-book.png";
+                  let fullBookImagePath =  bookImagePath;
                   // Status bestimmen
                   if (book.status_text.includes("Verfügbar")) {
                      statusClass = 'verfugbar';
@@ -1313,9 +1200,8 @@ if (window.location.href.includes("bucherverwaltung.html")) {
          });
    }
 
-   // Event Listener für das Suchfeld
+
    document.getElementById("searchInput").addEventListener("input", searchBooks);
 
-   // Bücher beim Laden abrufen
    document.addEventListener("DOMContentLoaded", searchBooks);
 }
