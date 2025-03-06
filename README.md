@@ -18,10 +18,11 @@ Ein webbasiertes System zur Verwaltung einer bibliothek. Es ermöglicht die Verw
 - **Architektur**: Model-View-Controller (MVC) 
 
 ## Screenshots
-![Dashboard Screenshot](screenshot/dashboard.png)  
-![Bucher Screenshot](screenshot/bucher.png)  
-![ausgeliehenen_buecher Screenshot](screenshot/meine_ausgeliehenen_buecher.png)  
-![meine_ausleihen Screenshot](screenshot/meine_ausleihen.png)  
-
+<p align="center">
+  <img src="screenshot/dashboard.png" width="200">
+  <img src="screenshot/bucher.png" width="200">
+  <img src="screenshot/meine_ausleihen.png" width="200">
+  <img src="screenshot/meine_ausgeliehenen_buecher.png" width="200">
+</p>
 
 
