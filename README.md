@@ -15,6 +15,8 @@ Ein webbasiertes System zur Verwaltung einer bibliothek. Es ermöglicht die Verw
 - **Frontend**: HTML5, CSS3, JavaScript  
 - **Backend**: PHP (ohne Framework, reines MVC)  
 - **Datenbank**: MySQL  
-- **Architektur**: Model-View-Controller (MVC)  
+- **Architektur**: Model-View-Controller (MVC) 
 
+## Screenshots
+![Dashboard Screenshot](screenshot/dashboard.png)  
 
