@@ -17,6 +17,4 @@ Ein webbasiertes System zur Verwaltung einer Schulbibliothek. Es ermöglicht die
 - **Datenbank**: MySQL  
 - **Architektur**: Model-View-Controller (MVC)  
 
-## Screenshots
 
-![Dashboard Screenshot](./screenshots/dashboard.png)  
