@@ -19,4 +19,9 @@ Ein webbasiertes System zur Verwaltung einer bibliothek. Es ermöglicht die Verw
 
 ## Screenshots
 ![Dashboard Screenshot](screenshot/dashboard.png)  
+![Bucher Screenshot](screenshot/bucher.png)  
+![ausgeliehenen_buecher Screenshot](screenshot/meine_ausgeliehenen_buecher.png)  
+![meine_ausleihen Screenshot](screenshot/meine_ausleihen.png)  
+
+
 
