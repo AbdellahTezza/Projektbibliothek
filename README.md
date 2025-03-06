@@ -1,6 +1,6 @@
-#  Schulbibliothek-Management-System
+#  bibliothek-Management-System
 
-Ein webbasiertes System zur Verwaltung einer Schulbibliothek. Es ermöglicht die Verwaltung von Büchern, Benutzern und Ausleihvorgängen.
+Ein webbasiertes System zur Verwaltung einer bibliothek. Es ermöglicht die Verwaltung von Büchern, Ausleihvorgängen.
 
 ##  Funktionen
 
