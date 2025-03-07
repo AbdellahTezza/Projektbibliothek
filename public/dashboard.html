@@ -1,47 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Statistik Dashboard</title>
-        <link rel="stylesheet" href="./css/styles.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-        <script src="js/include.js" defer></script>
-        <script src="js/script.js" defer></script>
-    </head>
-    <body>
-        <div id="loader">
-            <div class="spinner"></div>
-           </div>
-           <div id="content">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Statistik Dashboard</title>
+
+    <!-- Verknüpfung mit externem CSS -->
+    <link rel="stylesheet" href="./css/styles.css" />
+
+    <!-- FontAwesome für Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <!-- Lädt Header und Footer dynamisch -->
+    <script src="js/include.js"></script>
+    <!-- JavaScript-Dateien für die Funktionalität -->
+    <script src="js/script.js"></script>
+</head>
+
+<body>
+
+    <!-- Ladeanimation -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="content">
+        <!-- Dynamischer Header -->
         <div id="header"></div>
-            <main>
+
+        <main>
             <h2>Übersicht</h2>
 
+            <!-- Statistik-Dashboard -->
             <div class="dashboard-statistics">
+
+                <!-- Bücher verfügbar -->
                 <div class="stat-card books">
                     <div class="icon"><i class="fas fa-book"></i></div>
-                    <h3>Bucher verfügbar</h3>
+                    <h3>Bücher verfügbar</h3>
                     <p id="book-count">Lädt...</p>
                 </div>
 
+                <!-- Eigene Ausleihen -->
                 <div class="stat-card loans">
                     <div class="icon"><i class="fas fa-book-reader"></i></div>
                     <h3>Meine Ausleihen</h3>
                     <p id="loan-count">Lädt...</p>
                 </div>
 
-                <div class="stat-card students">
-                    <div class="icon">
-                        <i class="fas fa-clock"></i> <!-- Bald fällige Bücher -->
-                    </div>
-                    <h3>Überfällige und in Kürze fällig werdende Bücher
-                    </h3>
-                    <p id="student-count">Lädt...</p>
+                <!-- Überfällige & bald fällige Bücher -->
+                <div class="stat-card due-books">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <h3>Überfällige & bald fällige Bücher</h3>
+                    <p id="due-book-count">Lädt...</p>
                 </div>
             </div>
         </main>
+
+        <!-- Dynamischer Footer -->
         <div id="footer"></div>
-        </div>
-    </body>
+    </div>
+
+</body>
+
 </html>

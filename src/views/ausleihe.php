@@ -5,16 +5,9 @@ require_once "../controllers/AusleiheController.php";
 $ausleiheModel = new AusleiheController(Database::getConnection());
 
 
-
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    // if ($_POST['action'] === 'countAusleihen') {
-    //     $count = $ausleiheModel->countAusleihen();
-    //     echo json_encode(['count' => $count]); 
-    //     exit;
-    // }
 
+    // Fall: Ein Buch ausleihen
     if ($_POST['action'] === 'borrow') {
         $buchId = $_POST['buch_id'];
         $schuelerId = $_POST['schueler_id'];
@@ -22,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         exit;
     }
 
+    // Fall: Ein Buch zurückgeben
     if ($_POST['action'] === 'return') {
         $buchId = $_POST['buch_id'];
         $schuelerId = isset($_POST['schueler_id']) ? $_POST['schueler_id'] : $_SESSION['schueler_id'];
@@ -31,12 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'getCounts') {
+    // Ruft die Methode auf, um die Anzahl der Ausleihen, Bücher und Schüler abzurufen
     $ausleiheModel->getCounts();
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'getCountsschuler') {
-    // $ausleiheModel->getCountsschuler();
     $schueler_id = $_SESSION['schueler_id'] ?? null;
+    // Methode zur Abrufung der Zählerwerte für den Schüler aufrufen
     $ausleiheModel->getCountsschuler($schueler_id);
 }
 
@@ -58,7 +53,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'getMeineAusgeliehenenBuecher'
 }
 if (isset($_GET['action']) && $_GET['action'] === 'getDueAndUpcomingBooks') {
     $tageBisFaellig = isset($_GET['tage']) ? (int)$_GET['tage'] : 3;
-    $schueler_id = $_SESSION['schueler_id']; // Benutzer aus der Session
+    $schueler_id = $_SESSION['schueler_id']; 
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 10;
@@ -82,9 +77,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($books);
     exit;
 }
-
-
-
-
 
 ?>

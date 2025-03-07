@@ -16,63 +16,63 @@ class Book {
     } 
 
 
-public function createBook($titel, $autor, $isbn, $beschreibung, $bild) {
-    $query = "INSERT INTO buecher (titel, autor, isbn, beschreibung, bild) 
-              VALUES (:titel, :autor, :isbn, :beschreibung, :bild)";
-    
-    $stmt = $this->db->prepare($query);
-    
-    $stmt->bindParam(':titel', $titel);
-    $stmt->bindParam(':autor', $autor);
-    $stmt->bindParam(':isbn', $isbn);
-    $stmt->bindParam(':beschreibung', $beschreibung);
-    $stmt->bindParam(':bild', $bild);  
-    
-    if ($stmt->execute()) {
-        return ['success' => true, 'message' => 'Buch hinzugefügt'];
-    }
-    
-    return ['success' => false, 'message' => 'Fehler beim Hinzufügen des Buches'];
-}
-
-
-
-
-public function updateBook($id, $titel, $autor, $isbn, $beschreibung, $bild) {
-
-    if (empty($bild)) {
-        $currentBild = $this->getCurrentImage($id); 
-        $bild = $currentBild; 
+    public function createBook($titel, $autor, $isbn, $beschreibung, $bild) {
+        $query = "INSERT INTO buecher (titel, autor, isbn, beschreibung, bild) 
+                VALUES (:titel, :autor, :isbn, :beschreibung, :bild)";
+        
+        $stmt = $this->db->prepare($query);
+        
+        $stmt->bindParam(':titel', $titel);
+        $stmt->bindParam(':autor', $autor);
+        $stmt->bindParam(':isbn', $isbn);
+        $stmt->bindParam(':beschreibung', $beschreibung);
+        $stmt->bindParam(':bild', $bild);  
+        
+        if ($stmt->execute()) {
+            return ['success' => true, 'message' => 'Buch hinzugefügt'];
+        }
+        
+        return ['success' => false, 'message' => 'Fehler beim Hinzufügen des Buches'];
     }
 
-    $query = "UPDATE buecher SET titel = :titel, autor = :autor, isbn = :isbn, beschreibung = :beschreibung, bild = :bild WHERE id = :id";
 
-    $stmt = $this->db->prepare($query);
 
-    $stmt->bindParam(':id', $id);
-    $stmt->bindParam(':titel', $titel);
-    $stmt->bindParam(':autor', $autor);
-    $stmt->bindParam(':isbn', $isbn);
-    $stmt->bindParam(':beschreibung', $beschreibung);
 
-    $stmt->bindParam(':bild', $bild);
+    public function updateBook($id, $titel, $autor, $isbn, $beschreibung, $bild) {
 
-    if ($stmt->execute()) {
-        return ['success' => true, 'message' => 'Das Buch wurde erfolgreich aktualisiert'];
+        if (empty($bild)) {
+            $currentBild = $this->getCurrentImage($id); 
+            $bild = $currentBild; 
+        }
+
+        $query = "UPDATE buecher SET titel = :titel, autor = :autor, isbn = :isbn, beschreibung = :beschreibung, bild = :bild WHERE id = :id";
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':titel', $titel);
+        $stmt->bindParam(':autor', $autor);
+        $stmt->bindParam(':isbn', $isbn);
+        $stmt->bindParam(':beschreibung', $beschreibung);
+
+        $stmt->bindParam(':bild', $bild);
+
+        if ($stmt->execute()) {
+            return ['success' => true, 'message' => 'Das Buch wurde erfolgreich aktualisiert'];
+        }
+        return ['success' => false, 'message' => 'Ein Fehler ist beim Aktualisieren des Buches aufgetreten'];
+
     }
-    return ['success' => false, 'message' => 'Ein Fehler ist beim Aktualisieren des Buches aufgetreten'];
 
-}
+    private function getCurrentImage($id) {
+        $query = "SELECT bild FROM buecher WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-private function getCurrentImage($id) {
-    $query = "SELECT bild FROM buecher WHERE id = :id";
-    $stmt = $this->db->prepare($query);
-    $stmt->bindParam(':id', $id);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $result['bild']; 
-}
+        return $result['bild']; 
+    }
 
     public function deleteBook($id) {
         $query = "DELETE FROM buecher WHERE id = :id";

@@ -1,65 +1,86 @@
 <!DOCTYPE html>
 <html lang="de">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Schulbibliothek</title>
-      <link rel="stylesheet" href="css/styles.css">
-      <script src="js/script.js"></script>
-      <script src="js/include.js" defer></script>
-   </head>
-   <body>
-      <div id="loader">
-         <div class="spinner"></div>
-        </div>
-        <div id="content">
-      <div id="header"></div>
-      <main>
-      <h2>Meine Ausleihen</h2>
-      <div class="search-container">        
-         <input type="text" id="searchInput" placeholder="Nach Buch suchen..." onkeyup="fetchMeineAusgeliehenenBuecher(this.value, 1)">
-      </div>
-      <div id="alertBox" class="alert"></div>
 
-      <table>
-         <thead>
-            <tr>
-               <th>Titel</th>
-               <th>Autor</th>
-               <th>Ausleihdatum</th>
-               <th>Status</th>
-               <th>Tag: Tage bis Rückgabe	</th>
-               <th>Aktion</th>
-            </tr>
-         </thead>
-         <tbody id="ausleihen-list">
-            <!-- Dynamischer Inhalt -->
-         </tbody>
-      </table>
-      <div id="pagination-container">
-         <!-- Paginierungsbuttons -->
-      </div>
-      <!-- Modal für Buchausleihe -->
-      <div id="borrowModal" class="modal">
-         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Buch ausleihen</h2>
-            <form id="borrowForm">
-               <div class="head_block">
-                  <p><strong>Titel:</strong> <span id="buchTitel"></span></p>
-                  <p><strong>Autor:</strong> <span id="buchAutor"></span></p>
-               </div>
-               <!-- Anzeige für Rückgabe -->
-               <div id="schuelerInfoContainer">
-                  <p><strong>Verbleibende Tage:</strong> <span id="tageBisRueckgabe"></span></p>
-               </div>
-               <input type="hidden" id="buchId" name="buch_id">
-               <button type="submit" id="modalSubmitBtn"> Buch zurückgeben </button>
-            </form>
-         </div>
-      </div>
-    </main>
-      <div id="footer"></div>
-        </div>
-   </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schulbibliothek</title>
+
+    <!-- Einbindung der CSS-Datei für das Styling -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- JavaScript-Dateien für die Funktionalität -->
+    <script src="js/script.js"></script>
+    <!-- Lädt Header und Footer dynamisch -->  
+    <script src="js/include.js"></script>
+</head>
+
+<body>
+
+    <!-- Lade-Animation -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="content">
+
+        <!-- Dynamischer Header -->
+        <div id="header"></div>
+
+        <main>
+            <h2>Meine Ausleihen</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Nach Buch suchen..." onkeyup="fetchMeineAusgeliehenenBuecher(this.value, 1)">
+            </div>
+
+            <div id="alertBox" class="alert"></div>
+
+            <!-- Tabelle zur Anzeige der ausgeliehenen Bücher -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titel</th>
+                        <th>Autor</th>
+                        <th>Ausleihdatum</th>
+                        <th>Status</th>
+                        <th>Tag: Tage bis Rückgabe</th>
+                        <th>Aktion</th>
+                    </tr>
+                </thead>
+                <tbody id="ausleihen-list">
+                    <!-- Dynamischer Inhalt wird hier eingefügt -->
+                </tbody>
+            </table>
+
+            <!-- Paginierungscontainer für die Blätterfunktion -->
+            <div id="pagination-container">
+                <!-- Paginierungsbuttons werden dynamisch eingefügt -->
+            </div>
+
+            <!-- Modal für die Buchrückgabe -->
+            <div id="borrowModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2 id="modalTitle">Buch ausleihen</h2>
+                    <form id="borrowForm">
+                        <div class="head_block">
+                            <p><strong>Titel:</strong> <span id="buchTitel"></span></p>
+                            <p><strong>Autor:</strong> <span id="buchAutor"></span></p>
+                        </div>
+                        <div id="schuelerInfoContainer">
+                            <p><strong>Verbleibende Tage:</strong> <span id="tageBisRueckgabe"></span></p>
+                        </div>
+                        <input type="hidden" id="buchId" name="buch_id">
+                        <button type="submit" id="modalSubmitBtn">Buch zurückgeben</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- Dynamischer Footer -->
+        <div id="footer"></div>
+
+    </div>
+</body>
+
 </html>

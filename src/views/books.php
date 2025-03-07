@@ -1,12 +1,7 @@
 <?php
 require_once "../controllers/BookController.php";
-
 // Instanziiere den Controller
 $controller = new BookController(Database::getConnection());
-
-
-
-
 
 // API-Aufruf für das Abrufen der Bücher
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getBooks') {
@@ -63,10 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
 }
 
 
-
-
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'addBook') {
         $titel = htmlspecialchars($_POST['titel']);
         $autor = htmlspecialchars($_POST['autor']);
@@ -87,8 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         $controller->addBook($titel, $autor, $isbn, $beschreibung, $bild);
     } else {
         $bild = null;
-        // echo json_encode(["success" => false, "message" => "Fehlende Daten"]);
-         $controller->addBook($titel, $autor, $isbn, $beschreibung, $bild);
+        $controller->addBook($titel, $autor, $isbn, $beschreibung, $bild);
     }
 }
 

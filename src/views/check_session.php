@@ -11,8 +11,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 }
 
 if ($isLoggedIn) {
-
-    
     echo json_encode([
         "loggedIn" => true,
         "role" => $_SESSION["role"],
@@ -22,7 +20,6 @@ if ($isLoggedIn) {
 } else {
     echo json_encode(["loggedIn" => false]);
 }
-
 exit;
 ?>
 

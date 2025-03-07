@@ -36,6 +36,7 @@ class AusleiheController {
         return $result;
     }
 
+    //  * Ruft die Anzahl der Einträge für verschiedene Entitäten (Ausleihen, Bücher, Schüler)
     public function getCounts() {
         $counts = [
             'ausleihen' => $this->ausleiheModel->countRecords('ausleihen'),
@@ -46,6 +47,7 @@ class AusleiheController {
         exit;
     }
     
+    // Ruft die Anzahl der verfügbaren Bücher, der eigenen Ausleihen und der bald überfälligen Bücher für einen Schüler ab.
     public function getCountsschuler($schueler_id) {
         $counts = [
             'buecher_verfuegbar' => $this->ausleiheModel->schulercountRecords('buecher_verfuegbar'),
