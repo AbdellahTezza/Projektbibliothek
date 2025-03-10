@@ -29,20 +29,16 @@
                 <div class="dropdown-content">
                     <div class="profile-info">
                         <span class="user-name">John Doe</span>
-                        <span class="user-role">Administrator</span> <!-- Optional role -->
+                        <span class="user-role">Administrator</span>
                     </div>
                     <a href="#" onclick="editprofile()">Bearbeiten</a>
                     <a href="#" onclick="logout()" >Logout</a>
                 </div>
             </div>
         </div>
-        
     </div>
-
-
-            <!-- Modal für Schüler -->
-            <div id="edit-prof" class="modal">
-                <div class="modal-content">
+    <div id="edit-prof" class="modal">
+            <div class="modal-content">
                     <span class="close" onclick="closeMod()">&times;</span>
                     <h2 id="modal-title">Schüler hinzufügen</h2>
                     <div id="alertBoxemail" class="alert edit_repeat" ></div>
@@ -63,7 +59,7 @@
                             <input type="file" id="bilder" name="bilder" accept="image/*"> 
                         <button type="button" onclick="sendSchuelerData()" >Speichern</button>
                     </form>
-                </div>
             </div>
+    </div>
 </header>
 

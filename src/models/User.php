@@ -11,11 +11,10 @@ class User {
         $table = ($userType === 'admin') ? "admins" : "schueler";    
         $query = "INSERT INTO $table (vorname, nachname, email, passwort_hash, bild) VALUES (:vorname, :nachname, :email, :passwort, :bild)";
         $stmt = $this->db->prepare($query);
-        
         $stmt->bindParam(':vorname', $vorname);
         $stmt->bindParam(':nachname', $nachname);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':passwort', $password); // Hier korrigiert
+        $stmt->bindParam(':passwort', $password);
         $stmt->bindParam(':bild', $bild);
     
         if ($stmt->execute()) {
@@ -24,67 +23,45 @@ class User {
             return ["success" => false, "message" => "Fehler bei der Registrierung!"];
         }
     }
-    
-    
+     
     public function getAllSchueler($search = '', $limit = 10, $offset = 0) {
-        // Start the base query
         $query = "SELECT id, vorname, nachname, email, bild FROM schueler WHERE 1=1";
-    
-        // If a search term is provided, add WHERE conditions
         if (!empty($search)) {
             $query .= " AND (vorname LIKE :search OR nachname LIKE :search OR email LIKE :search)";
         }
-        
-        // Append ORDER, LIMIT, and OFFSET
         $query .= " ORDER BY nachname LIMIT :limit OFFSET :offset";
-    
         $stmt = $this->db->prepare($query);
-    
-        // Bind search parameter if needed
         if (!empty($search)) {
             $searchParam = "%" . $search . "%";
             $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
         }
-    
-        // Use bindValue() for LIMIT and OFFSET
         $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
-    
         $stmt->execute();
         $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        // Get the total count of students
         $countQuery = "SELECT COUNT(*) as total FROM schueler WHERE 1=1";
-    
         if (!empty($search)) {
             $countQuery .= " AND (vorname LIKE :search OR nachname LIKE :search OR email LIKE :search)";
         }
-    
         $countStmt = $this->db->prepare($countQuery);
-        
         if (!empty($search)) {
             $countStmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
         }
-    
         $countStmt->execute();
         $totalStudents = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
-    
         return [
             'students' => $students,
             'totalStudents' => $totalStudents
         ];
     }
     
-    
     public function getUserByEmail($email, $userType) {
         $table = ($userType === 'admin') ? "admins" : "schueler";
 		$stmt = $this->db->prepare("SELECT id FROM $table WHERE email = ?");
 		$stmt->execute([$email]);
-		
 		if ($stmt->fetch()) {
 			return json_encode(["success" => false, "message" => "Diese E-Mail-Adresse ist bereits registriert!"]);
 		}
-		
 	}
 
     public function deleteSchueler($id) {
@@ -96,6 +73,7 @@ class User {
         }
         return ['success' => false, 'message' => 'Fehler beim Löschen des Schueler'];
     }
+
     public function updateSchueler($id, $vorname, $nachname, $email, $password = null, $bild = null) {
         if ($bild === null) {
             $bild = $this->getCurrentBild($id); 
@@ -139,7 +117,6 @@ class User {
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 
     public function getUserdata($roled, $schueler_id) {
         if (!in_array($roled, ['admins', 'schueler'])) {

@@ -6,7 +6,6 @@ class Book {
         $this->db = $db;
     }
 
-    // Alle Bücher abrufen
     public function getAllBooks() {
         $query = "SELECT * FROM buecher";
         $stmt = $this->db->prepare($query);
@@ -15,13 +14,10 @@ class Book {
         return $result;
     } 
 
-
     public function createBook($titel, $autor, $isbn, $beschreibung, $bild) {
         $query = "INSERT INTO buecher (titel, autor, isbn, beschreibung, bild) 
                 VALUES (:titel, :autor, :isbn, :beschreibung, :bild)";
-        
         $stmt = $this->db->prepare($query);
-        
         $stmt->bindParam(':titel', $titel);
         $stmt->bindParam(':autor', $autor);
         $stmt->bindParam(':isbn', $isbn);
@@ -35,9 +31,6 @@ class Book {
         return ['success' => false, 'message' => 'Fehler beim Hinzufügen des Buches'];
     }
 
-
-
-
     public function updateBook($id, $titel, $autor, $isbn, $beschreibung, $bild) {
 
         if (empty($bild)) {
@@ -46,17 +39,13 @@ class Book {
         }
 
         $query = "UPDATE buecher SET titel = :titel, autor = :autor, isbn = :isbn, beschreibung = :beschreibung, bild = :bild WHERE id = :id";
-
         $stmt = $this->db->prepare($query);
-
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':titel', $titel);
         $stmt->bindParam(':autor', $autor);
         $stmt->bindParam(':isbn', $isbn);
         $stmt->bindParam(':beschreibung', $beschreibung);
-
         $stmt->bindParam(':bild', $bild);
-
         if ($stmt->execute()) {
             return ['success' => true, 'message' => 'Das Buch wurde erfolgreich aktualisiert'];
         }
@@ -93,6 +82,7 @@ class Book {
 
         return $book ?: null; 
     }
+    
     public function getAvailableBooks($search = "", $limit = 10, $offset = 0) {
         $query = "SELECT 
                     b.id, 

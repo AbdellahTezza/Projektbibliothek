@@ -4,45 +4,21 @@ require_once "../controllers/SchuelerController.php";
 
 $authController = new AuthController(Database::getConnection());
 
-
-
-
-// if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getSchueler') {
-//     $authController->getSchueler();
-// }
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getSchueler') {
 
-    // Optional: Falls nur angemeldete Benutzer auf die Schülerliste zugreifen dürfen
     if (!isset($_SESSION['schueler_id'])) {
         echo json_encode(["error" => "Nicht angemeldet"]);
         exit;
     }
 
-    // Parameter aus der URL abrufen
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 10;
     $offset = ($page - 1) * $limit;
-
-    // Daten abrufen
     $result = $authController->getSchueler($search, $limit, $offset);
-
-    // Antwort als JSON zurückgeben
     echo json_encode($result);
     exit;
 }
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-//     if ($_POST['action'] === 'addSchueler') {
-//         $authController->register($_POST['vorname'], $_POST['nachname'], $_POST['email'], $_POST['password'], 'schueler');
-//     } elseif ($_POST['action'] === 'updateSchueler') {
-//         $password = isset($_POST['password']) && !empty($_POST['password']) ? $_POST['password'] : null; // Passwort prüfen und null setzen, wenn leer
-//         $authController->updateSchueler($_POST['id'], $_POST['vorname'], $_POST['nachname'], $_POST['email'], $password);
-//     }
-// }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $bildPath = null; 
@@ -73,8 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     }
 }
 
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'deleteSchueler') {
     $authController->deleteSchueler($_GET['id']);
 }
@@ -85,8 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     $authController->getSchuelerById($_SESSION['schueler_id']); 
 }
 
-$SchuelerController = new SchuelerController(Database::getConnection());
-// All books 
+$SchuelerController = new SchuelerController(Database::getConnection()); 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getAllBooks') {
     $SchuelerController->getAllBooks();
 } 

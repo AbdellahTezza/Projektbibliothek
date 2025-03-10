@@ -6,27 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bücher</title>
 
-    <!-- Verknüpfung mit externen CSS- und JavaScript-Dateien -->
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Lädt Header und Footer dynamisch -->
     <script src="js/include.js"></script>
 </head>
 
 <body>
 
-    <!-- Ladeanimation -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
     <div id="content">
-        <!-- Dynamischer Header -->
         <div id="header"></div>
 
         <main>
             <h2>Bücher</h2>
 
-            <!-- Abschnitt zur Anzeige der Bücherliste -->
             <section id="books" class="tab">
 
                 <div class="search-container">
@@ -35,7 +30,6 @@
 
                 <div id="alertBox" class="alert"></div>
 
-                <!-- Tabelle mit Büchern -->
                 <table>
                     <thead>
                         <tr>
@@ -46,18 +40,15 @@
                         </tr>
                     </thead>
                     <tbody id="book-list"></tbody>
-                    <!-- Dynamisch durch JavaScript gefüllt -->
                 </table>
 
                 <div id="pagination" style="margin-top: 20px;"></div>
 
             </section>
 
-            <!-- Modal für Buchdetails -->
             <div id="showBookDetails" class="modal">
                 <div class="modal-content">
 
-                    <!-- Schließen-Button für das Modal -->
                     <span class="close" onclick="closeModal()">&times;</span>
 
                     <h2 id="modalTitle">Buch ausleihen</h2>
@@ -91,11 +82,9 @@
 
         </main>
 
-        <!-- Dynamischer Footer -->
         <div id="footer"></div>
     </div>
 
-    <!-- JavaScript-Dateien für die Funktionalität -->
     <script src="js/script.js"></script>
 
 </body>

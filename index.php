@@ -12,7 +12,6 @@ $pages = [
     "meine_ausgeliehenen_buecher" => __DIR__ . "/public/meine_ausgeliehenen_buecher.html",
 ];
 
-
 if (!isset($_GET['page'])) {
     if ($_SESSION['role'] === 'admin') {
 
@@ -23,6 +22,7 @@ if (!isset($_GET['page'])) {
         header("Location: /public/dashboard.html");
         exit();
     }
+
 } else {
     $page = $_GET['page'];
 }
@@ -34,14 +34,12 @@ if (!isset($_SESSION['schueler_id']) && $page !== "login") {
 
 if (array_key_exists($page, $pages)) {
     include $pages[$page]; 
-}else{
+} else {
         if ($_SESSION['role'] === 'admin') {
         $page = "dashboard_admin";
     } else {
         $page = "dashboard";
     }
 } 
-
-
 
 ?>

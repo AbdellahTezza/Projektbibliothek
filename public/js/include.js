@@ -34,15 +34,11 @@ function menumobile() {
     }
 }
 
-
 function checkSession() {
     fetch('../src/views/check_session.php')
-        .then(response => response.json())  // Antwort als JSON parsen
+        .then(response => response.json()) 
         .then(data => {
             if (data.loggedIn) {
-
-
-                // Menü entsprechend der Benutzerrolle anzeigen
                 if (data.role === "schuler") {
                     document.getElementById("schuler-menu").style.display = "block";
                 } else if (data.role === "admin") {
@@ -58,10 +54,6 @@ function checkSession() {
         });
 }
 
-
-
-
-
 function logout() {
     fetch('../src/views/check_session.php?action=logout')
     .then(response => response.json())
@@ -69,8 +61,6 @@ function logout() {
         window.location.href = "./login.html";
     });
 }
-
-
 
 function editprofile() {
     document.getElementById("edit-prof").style.display = "flex";
@@ -85,7 +75,7 @@ function editprofile() {
                 document.getElementById("vornames").value = data.vorname;
                 document.getElementById("nachnames").value = data.nachname;
                 document.getElementById("emails").value = data.email;
-                document.getElementById("passwords").value = ""; // Passwort bleibt leer
+                document.getElementById("passwords").value = ""; 
             });
 }
 
@@ -93,27 +83,20 @@ function closeMod() {
     document.getElementById("edit-prof").style.display = "none";
 }
 
-
-
-
-
-
 function sendSchuelerData() {
     console.log("Funktion wird ausgeführt!");
 
-    // Eingabewerte abrufen
     const id = document.getElementById("schuelerId").value;
     const vorname = document.getElementById("vornames").value;
     const nachname = document.getElementById("nachnames").value;
     const email = document.getElementById("emails").value;
-    const password = document.getElementById("passwords").value.trim(); // Entferne Leerzeichen;
+    const password = document.getElementById("passwords").value.trim(); 
     const bild = document.getElementById("bilder").files[0];
     const currentBild = document.getElementById("current_bilder")?.value;
 
-    // Einfache Validierung der Eingabefelder
     if (!vorname || !nachname || !email) {
         document.getElementById("message").innerHTML = "<p style='color: red;'>Vorname, Nachname und E-Mail sind erforderlich.</p>";
-        return; // Verhindert das Absenden, wenn Felder fehlen
+        return; 
     }
 
     const formData = new FormData();
@@ -121,41 +104,31 @@ function sendSchuelerData() {
     formData.append("nachname", nachname);
     formData.append("email", email);
 
-    // Optionales Passwort anhängen, falls vorhanden
     if (password) { 
         formData.append("password", password); 
     }
 
-    // ID und Action für das Update anfügen, wenn ID vorhanden
     if (id) {
         formData.append("id", id);
         formData.append("action", "updateSchueler");
     }
 
-    // Optionales Bild anhängen
     if (bild) {
         formData.append("bild", bild);
     }
 
-    // Wenn kein neues Bild, aber ein aktuelles Bild vorhanden ist, füge das aktuelle Bild hinzu
     if (!bild && currentBild) {
         formData.append("current_bild", currentBild);
     }
 
-    // Fetch-Anfrage senden
     fetch("../src/views/getUserdata.php?action=updateUserdata", {
         method: "POST",
         body: formData
     })
     .then(response => response.json())
     .then(result => {
-                // console.log(data);
-
-        // const messageBox = document.getElementById("message");
         if (result.success) {
-            // Erfolgreiches Update
             console.log("Schüler erfolgreich aktualisiert");
-            // Optionale Funktion zum Schließen des Modals, wenn erfolgreich
             getdataUser();
             closeMod();
         } else {
@@ -164,10 +137,8 @@ function sendSchuelerData() {
     })
     .catch(error => {
         console.error("Fehler beim Speichern:", error);
-        // document.getElementById("message").innerHTML = "<p style='color: red;'>Ein Fehler ist aufgetreten. Bitte versuche es erneut.</p>";
     });
 }
-
 
 function getdataUser() {
     fetch('../src/views/getUserdata.php?action=role')

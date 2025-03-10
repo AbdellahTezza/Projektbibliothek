@@ -43,8 +43,6 @@ class Ausleihe {
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        // Gesamtanzahl der Bücher abrufen
         $totalQuery = "SELECT FOUND_ROWS() as total";
         $totalStmt = $this->db->query($totalQuery);
         $totalCount = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
@@ -105,17 +103,17 @@ class Ausleihe {
         return ['books' => $books, 'totalPages' => $totalPages];
     }
     
-        public function borrowBook($buchId, $schuelerId) {
-            $query = "INSERT INTO ausleihen (buch_id, schueler_id, ausleihdatum, rueckgabedatum, status) 
-                      VALUES (:buch_id, :schueler_id, NOW(), DATE_ADD(NOW(), INTERVAL 4 WEEK), 'borrowed')";
-            $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':buch_id', $buchId);
-            $stmt->bindParam(':schueler_id', $schuelerId);
-            if ($stmt->execute()) {
-                return ['success' => true, 'message' => 'Buch erfolgreich ausgeliehen'];
-            }
-            return ['success' => false, 'message' => 'Fehler beim Ausleihen'];
+    public function borrowBook($buchId, $schuelerId) {
+        $query = "INSERT INTO ausleihen (buch_id, schueler_id, ausleihdatum, rueckgabedatum, status) 
+                  VALUES (:buch_id, :schueler_id, NOW(), DATE_ADD(NOW(), INTERVAL 4 WEEK), 'borrowed')";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':buch_id', $buchId);
+        $stmt->bindParam(':schueler_id', $schuelerId);
+        if ($stmt->execute()) {
+            return ['success' => true, 'message' => 'Buch erfolgreich ausgeliehen'];
         }
+        return ['success' => false, 'message' => 'Fehler beim Ausleihen'];
+    }
 
     public function returnBook($buchId, $schuelerId) {
         $query = "UPDATE ausleihen SET status = 'returned', rueckgabedatum = NOW() 
@@ -170,7 +168,6 @@ class Ausleihe {
         return $stmt->fetchColumn() ?? 0;
     }
     
-    
     public function countRecords($table) {
         $allowedTables = ['ausleihen', 'buecher', 'schueler'];
         if (!in_array($table, $allowedTables)) {
@@ -184,54 +181,53 @@ class Ausleihe {
     }
 
     public function getMeineAusgeliehenenBuecher($search, $limit, $offset, $schueler_id) {
-   $query = "SELECT a.id AS ausleihe_id,
-                 a.buch_id, 
-                 b.titel, 
-                 b.autor,
-                 b.bild, 
-                 a.ausleihdatum, 
-                 a.rueckgabedatum, 
-                 DATEDIFF(a.rueckgabedatum, CURDATE()) AS tage_bis_rueckgabe,
-                 CASE 
-                     WHEN a.rueckgabedatum IS NOT NULL AND a.rueckgabedatum >= CURDATE() 
-                         THEN CONCAT('Verbleibende Anzahl Tage: ', DATEDIFF(a.rueckgabedatum, CURDATE()))
-                     WHEN a.rueckgabedatum IS NOT NULL AND DATEDIFF(a.rueckgabedatum, CURDATE()) BETWEEN 0 AND 5 
-                         THEN CONCAT('Bald überfällig in ', DATEDIFF(a.rueckgabedatum, CURDATE()), ' Tagen')
-                 END AS rueckgabe_status
-         FROM ausleihen a 
-         JOIN buecher b ON a.buch_id = b.id 
-         WHERE a.schueler_id = :schueler_id  
-         AND a.status = 'borrowed'
-         AND DATEDIFF(a.rueckgabedatum, CURDATE()) >= 0";
+        $query = "SELECT a.id AS ausleihe_id,
+                    a.buch_id, 
+                    b.titel, 
+                    b.autor,
+                    b.bild, 
+                    a.ausleihdatum, 
+                    a.rueckgabedatum, 
+                    DATEDIFF(a.rueckgabedatum, CURDATE()) AS tage_bis_rueckgabe,
+                    CASE 
+                        WHEN a.rueckgabedatum IS NOT NULL AND a.rueckgabedatum >= CURDATE() 
+                            THEN CONCAT('Verbleibende Anzahl Tage: ', DATEDIFF(a.rueckgabedatum, CURDATE()))
+                        WHEN a.rueckgabedatum IS NOT NULL AND DATEDIFF(a.rueckgabedatum, CURDATE()) BETWEEN 0 AND 5 
+                            THEN CONCAT('Bald überfällig in ', DATEDIFF(a.rueckgabedatum, CURDATE()), ' Tagen')
+                    END AS rueckgabe_status
+            FROM ausleihen a 
+            JOIN buecher b ON a.buch_id = b.id 
+            WHERE a.schueler_id = :schueler_id  
+            AND a.status = 'borrowed'
+            AND DATEDIFF(a.rueckgabedatum, CURDATE()) >= 0";
                  
 
-     if (!empty($search)) {
-         $query .= " AND (b.titel LIKE :search OR b.autor LIKE :search)";
-     }
+        if (!empty($search)) {
+            $query .= " AND (b.titel LIKE :search OR b.autor LIKE :search)";
+        }
 
-     $query .= " ORDER BY a.ausleihdatum DESC LIMIT :limit OFFSET :offset";
+        $query .= " ORDER BY a.ausleihdatum DESC LIMIT :limit OFFSET :offset";
 
-     $stmt = $this->db->prepare($query);
-     $stmt->bindParam(':schueler_id', $schueler_id, PDO::PARAM_INT);
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':schueler_id', $schueler_id, PDO::PARAM_INT);
 
-     if (!empty($search)) {
-         $searchParam = "%" . $search . "%"; 
-         $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
-     }
+        if (!empty($search)) {
+            $searchParam = "%" . $search . "%"; 
+            $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+        }
 
-     $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-     $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 
-     $stmt->execute();
-     $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-     return [
-         'books' => $books,
-         'totalBooks' => count($books)
-     ];
- }
+        return [
+            'books' => $books,
+            'totalBooks' => count($books)
+        ];
+    }
 
-        
     public function getDueAndUpcomingBooks($search, $limit, $offset, $schueler_id, $tageBisFaellig) {
         $query = "SELECT  
                     a.id AS ausleihe_id, 
@@ -284,6 +280,6 @@ class Ausleihe {
         ];
     }
     
-
 }
+
 ?>

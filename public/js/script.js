@@ -2,18 +2,15 @@ window.onload = function() {
    setTimeout(() => {
       document.getElementById("loader").style.display = "none";
       document.getElementById("content").style.display = "block";
-   }, 1500); // Attendre 1.5 secondes avant d'afficher la page
+   }, 1500); 
 };
 document.addEventListener("DOMContentLoaded", () => {
-   // Code Login 
    let loginForm = document.getElementById("loginForm");
    if (loginForm) {
       loginForm.addEventListener("submit", async (event) => {
          event.preventDefault();
          let email = document.getElementById("email").value;
          let password = document.getElementById("password").value;
-         // let userType = document.getElementById("userType").value;
-
          let response = await fetch("../src/views/login.php", {
             method: "POST",
             headers: {
@@ -40,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
    }
 
-   // Registerm From
    let registerForm = document.getElementById("registerForm");
    if (registerForm) {
       registerForm.addEventListener("submit", async (event) => {
@@ -101,8 +97,6 @@ if (window.location.href.includes("dashboard_admin.html")) {
    });
 }
 
-
-// Alert Show
 function showAlert(message, type) {
    let alertBox = document.getElementById("alertBox");
 
@@ -126,8 +120,6 @@ function showAlert(message, type) {
    }, 3000);
 }
 
-
-// Alert Show
 function mainAlert(message, type) {
    let alertBox = document.getElementById("alertBoxRepeat");
    let alertBoxemail = document.getElementById("alertBoxemail");
@@ -182,17 +174,13 @@ if (window.location.href.includes("books.html")) {
    function displayPage(page) {
       const tableBody = document.getElementById("table-body");
       tableBody.innerHTML = "";
-
-      const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase(); // Suchbegriff holen
-
-      // Bücher filtern nach Titel oder Autor
+      const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase(); 
       const filteredBooks = books.filter(book =>
          book.titel.toLowerCase().includes(searchTerm) ||
          book.autor.toLowerCase().includes(searchTerm)
       );
 
       if (filteredBooks.length === 0) {
-         // Keine Bücher gefunden
          tableBody.innerHTML = '<tr><td colspan="4">Keine Bücher gefunden</td></tr>';
          updatePagination(0, page); 
          return;
@@ -268,7 +256,6 @@ if (window.location.href.includes("books.html")) {
       setupPagination(books.length); 
    }
 
-   // Funktion zum Setup der Paginierung
    function setupPagination(totalBooks) {
       const pagination = document.getElementById("pagination");
       pagination.innerHTML = ""; 
@@ -305,7 +292,6 @@ if (window.location.href.includes("books.html")) {
       const modalTitle = document.getElementById("modal-title");
 
       if (book) {
-         // Buch bearbeiten
          modalTitle.textContent = "Buch bearbeiten";
          document.getElementById("bookId").value = book.id;
          document.getElementById("title").value = book.titel;
@@ -315,10 +301,10 @@ if (window.location.href.includes("books.html")) {
 
       } else {
          modalTitle.textContent = "Buch hinzufügen";
-         document.getElementById("bookForm").reset(); // Formular zurücksetzen
+         document.getElementById("bookForm").reset(); 
       }
 
-      modal.style.display = "flex"; // Modal anzeigen
+      modal.style.display = "flex";
    }
 
 
@@ -340,13 +326,12 @@ if (window.location.href.includes("books.html")) {
 
    document.getElementById("bookForm").addEventListener("submit", function (event) {
       event.preventDefault();
-
       const bookId = document.getElementById("bookId").value;
       const title = document.getElementById("title").value;
       const author = document.getElementById("author").value;
       const isbn = document.getElementById("isbn").value;
-      const beschreibung = document.getElementById("beschreibung").value; // Description
-      const bild = document.getElementById("bild").files[0]; // Image file
+      const beschreibung = document.getElementById("beschreibung").value;
+      const bild = document.getElementById("bild").files[0]; 
 
       const formData = new FormData();
       formData.append("titel", title);
@@ -368,7 +353,6 @@ if (window.location.href.includes("books.html")) {
          })
          .then(response => response.text())
          .then(data => {
-            //console.log(data); 
             try {
                const result = JSON.parse(data);
                showAlert(result.message, "success");
@@ -538,19 +522,18 @@ if (window.location.href.includes("bucher.html")) {
       fetch('../src/views/schueler.php?action=borrowBook', {
             method: "POST",
             headers: {
-               'Content-Type': 'application/x-www-form-urlencoded' // WICHTIG für POST-Daten
+               'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: new URLSearchParams({
                buch_id: buch_id
             })
          })
-         .then(response => response.json()) // Antwort als JSON parsen
+         .then(response => response.json()) 
          .then(data => {
-            // alert(data.message);  // Zeigt die Antwortnachricht an (z.B. Erfolg oder Fehler)
             if (data.success) {
                showAlert(data.message, "success");
-               closeModal(); // Modal nach erfolgreichem Ausleihen schließen
-               fetchBooks(); // Die Bücherliste nach dem Ausleihen erneut laden
+               closeModal(); 
+               fetchBooks();
             }
          })
          .catch(error => {
@@ -560,8 +543,8 @@ if (window.location.href.includes("bucher.html")) {
    }
 
 }
-// page Schuler
 
+// page Schuler
 if (window.location.href.includes("schuler.html")) {
    console.log("Vous êtes sur schuler.html !");
    document.addEventListener("DOMContentLoaded", function () {
@@ -596,7 +579,6 @@ if (window.location.href.includes("schuler.html")) {
                return;
             }
 
-            //const baseUrl = "http://localhost/schulbibliothek/";
             let imagePath = data.bild ? data.bild.replace("../../", "") : "bilder/default-profile.png";
             const fullImagePath =  imagePath;
             userImage.src = fullImagePath;
@@ -642,7 +624,6 @@ if (window.location.href.includes("schuler.html")) {
    }
 
    function deleteSchueler(id) {
-      // alert(id);
       if (confirm("Möchtest du diesen Schüler wirklich löschen?")) {
          fetch(`../src/views/schueler.php?action=deleteSchueler&id=${id}`, {
                method: "GET"
@@ -655,7 +636,6 @@ if (window.location.href.includes("schuler.html")) {
             .catch(error => console.error("Fehler beim Löschen:", error));
       }
    }
-
 
    function openModal(id = null) {
       document.getElementById("schuelerModal").style.display = "flex";
@@ -671,13 +651,10 @@ if (window.location.href.includes("schuler.html")) {
                document.getElementById("vorname").value = data.vorname;
                document.getElementById("nachname").value = data.nachname;
                document.getElementById("email").value = data.email;
-               document.getElementById("password").value = ""; // Passwort bleibt leer
-               document.getElementById("current_bild").value = data.bild; // Passwort bleibt leer
+               document.getElementById("password").value = "";
+               document.getElementById("current_bild").value = data.bild; 
             });
       } else {
-         // Passwortfeld anzeigen, wenn ein neuer Schüler hinzugefügt wird
-         // passwordField.style.display = "block";
-
          passwordF.textContent = "Passwort :";
          document.getElementById("modal-title").textContent = "Schüler hinzufügen";
          document.getElementById("schuelerId").value = "";
@@ -699,7 +676,7 @@ if (window.location.href.includes("schuler.html")) {
          const vorname = document.getElementById("vorname").value;
          const nachname = document.getElementById("nachname").value;
          const email = document.getElementById("email").value;
-         const password = document.getElementById("password").value.trim(); // Entferne Leerzeichen;
+         const password = document.getElementById("password").value.trim();
          const bild = document.getElementById("bild").files[0];
          const currentBild = document.getElementById("current_bild")?.value;
 
@@ -738,12 +715,10 @@ if (window.location.href.includes("schuler.html")) {
                closeModal();
                loadSchueler();
             } else {
-               // document.querySelector("#alertBoxRepeat").style.display = "block"; 
                mainAlert(result.message, "error");
             }
          } catch (error) {
             console.error("Fehler beim Speichern:", error);
-            // showAlert("Ein Fehler ist aufgetreten. Bitte versuche es erneut.", "error");
          }
       });
    });
@@ -791,7 +766,6 @@ if (window.location.href.includes("meine_ausleihen.html")) {
                let statusText = '';  
                let bookImagePath = book.bild ? book.bild.replace("../../public/", "") : "bilder/default-book.png";
                let fullBookImagePath =  bookImagePath;
-               // Status bestimmen
                 if (book.rueckgabe_status.includes("Überfällig")) {
                   statusClass = 'uberfallig';
                   statusText = 'Überfällig';

@@ -7,7 +7,6 @@ $ausleiheModel = new AusleiheController(Database::getConnection());
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
-    // Fall: Ein Buch ausleihen
     if ($_POST['action'] === 'borrow') {
         $buchId = $_POST['buch_id'];
         $schuelerId = $_POST['schueler_id'];
@@ -15,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         exit;
     }
 
-    // Fall: Ein Buch zurückgeben
     if ($_POST['action'] === 'return') {
         $buchId = $_POST['buch_id'];
         $schuelerId = isset($_POST['schueler_id']) ? $_POST['schueler_id'] : $_SESSION['schueler_id'];
@@ -25,13 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'getCounts') {
-    // Ruft die Methode auf, um die Anzahl der Ausleihen, Bücher und Schüler abzurufen
     $ausleiheModel->getCounts();
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'getCountsschuler') {
     $schueler_id = $_SESSION['schueler_id'] ?? null;
-    // Methode zur Abrufung der Zählerwerte für den Schüler aufrufen
     $ausleiheModel->getCountsschuler($schueler_id);
 }
 
@@ -41,6 +37,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'getMeineAusgeliehenenBuecher'
         echo json_encode(["error" => "Nicht angemeldet"]);
         exit;
     }
+    
     $schueler_id = $_SESSION['schueler_id'];
     $search = isset($_GET['search']) ? trim($_GET['search']) : "";
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;

@@ -6,24 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Überfällige und in Kürze fällig werdende Bücher</title>
 
-    <!-- CSS-Datei für das Styling -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- Lädt Header und Footer dynamisch -->
     <script src="js/include.js"></script>
-    <!-- JavaScript-Dateien für die Funktionalität -->
     <script src="js/script.js"></script>
 </head>
 
 <body>
-    <!-- Ladeanimation -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
     <div id="content">
 
-        <!-- Dynamischer Header -->
         <div id="header"></div>
 
         <main>
@@ -35,7 +30,6 @@
 
             <div id="alertBox" class="alert"></div>
 
-            <!-- Tabelle zur Darstellung der Bücher -->
             <table>
                 <thead>
                     <tr>
@@ -48,16 +42,12 @@
                         <th>Aktion</th>
                     </tr>
                 </thead>
-                <tbody id="booksTableBody">
-                    <!-- Bücher-Daten werden hier dynamisch eingefügt -->
-                </tbody>
+                <tbody id="booksTableBody"></tbody>
             </table>
 
-            <!-- Container für die Paginierung (Seitenblätterung) -->
             <div id="pagination-container"></div>
         </main>
 
-        <!-- Dynamischer Footer -->
         <div id="footer"></div>
     </div>
 </body>

@@ -6,24 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schülerliste</title>
 
-    <!-- Einbindung der externen CSS-Datei für das Styling -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- JavaScript-Dateien für die Funktionalität -->
     <script src="js/script.js"></script>
-    <!-- Lädt Header und Footer dynamisch -->
     <script src="js/include.js"></script>
 </head>
 
 <body>
 
-    <!-- Lade-Animation -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
     <div id="content">
-        <!-- Dynamischer Header -->
         <div id="header"></div>
 
         <main>
@@ -40,7 +35,6 @@
 
                 <div id="alertBox" class="alert"></div>
 
-                <!-- Tabelle zur Anzeige der Schülerinformationen -->
                 <table>
                     <thead>
                         <tr>
@@ -50,12 +44,9 @@
                             <th>Aktionen</th>
                         </tr>
                     </thead>
-                    <tbody id="table-body">
-                        <!-- Dynamische Inhalte der Tabelle werden hier eingefügt -->
-                    </tbody>
+                    <tbody id="table-body"></tbody>
                 </table>
 
-                <!-- Paginierungscontainer für die Blätterfunktion -->
                 <div id="schueler-pagination" class="pagination-container"></div>
 
             </div>
@@ -84,7 +75,6 @@
             </div>
         </main>
 
-        <!-- Dynamischer Footer -->
         <div id="footer"></div>
 
     </div>

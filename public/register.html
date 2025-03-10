@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrieren</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
+
     <div class="modal login">
         <div class="modal-content">
-        <h2>Registrieren</h2>
-        <div id="alertBox" class="alert"></div>
-        <form id="registerForm">
-            <input type="text" id="vorname" placeholder="Vorname" required>
-            <input type="text" id="nachname" placeholder="Nachname" required>
-            <input type="email" id="email" placeholder="E-Mail" required>
-            <input type="password" id="password" placeholder="Passwort" required>
-            <input type="hidden" id="userType" value="schueler" >
-            <button type="submit">Registrieren</button>
-            <h5> Haben Sie bereits ein Konto? <a  href="login.html">Konto erstellen</a></h5>
-        </form>
+            <h2>Registrieren</h2>
+            <div id="alertBox" class="alert"></div>
+            <form id="registerForm">
+                <input type="text" id="vorname" placeholder="Vorname" required>
+                <input type="text" id="nachname" placeholder="Nachname" required>
+                <input type="email" id="email" placeholder="E-Mail" required>
+                <input type="password" id="password" placeholder="Passwort" required>
+                <input type="hidden" id="userType" value="schueler" >
+                <button type="submit">Registrieren</button>
+                <h5> Haben Sie bereits ein Konto? <a  href="login.html">Konto erstellen</a></h5>
+            </form>
+        </div>
     </div>
-    </div>
+    
     <script src="js/script.js"></script>
+    
 </body>
+
 </html>

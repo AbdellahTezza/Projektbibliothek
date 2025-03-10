@@ -6,47 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Statistik Dashboard</title>
 
-    <!-- Verknüpfung mit externen CSS- und JavaScript-Dateien -->
     <link rel="stylesheet" href="./css/styles.css" />
 
-    <!-- FontAwesome für Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <!-- Lädt Header und Footer dynamisch -->
     <script src="js/include.js"></script>
-    <!-- JavaScript-Dateien für die Funktionalität -->
     <script src="js/script.js"></script>
 </head>
 
 <body>
 
-    <!-- Ladeanimation -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
     <div id="content">
-        <!-- Dynamischer Header -->
         <div id="header"></div>
 
         <main>
             <h2>Übersicht</h2>
             <div class="dashboard-statistics">
 
-                <!-- Karte für die Anzahl der Bücher -->
                 <div class="stat-card books">
                     <div class="icon"><i class="fas fa-book"></i></div>
                     <h3>Bücher</h3>
                     <p id="book-count">Lädt...</p>
                 </div>
 
-                <!-- Karte für die Anzahl der Ausleihen -->
                 <div class="stat-card loans">
                     <div class="icon"><i class="fas fa-book-reader"></i></div>
                     <h3>Ausleihen</h3>
                     <p id="loan-count">Lädt...</p>
                 </div>
 
-                <!-- Karte für die Anzahl der Schüler -->
                 <div class="stat-card students">
                     <div class="icon"><i class="fas fa-user-graduate"></i></div>
                     <h3>Schüler</h3>
@@ -55,7 +46,6 @@
             </div>
         </main>
 
-        <!-- Dynamischer Footer -->
         <div id="footer"></div>
     </div>
 

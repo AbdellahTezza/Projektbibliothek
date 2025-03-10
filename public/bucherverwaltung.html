@@ -6,24 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bücherverwaltung</title>
 
-    <!-- Verknüpfung mit externen CSS- und JavaScript-Dateien -->
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Lädt Header und Footer dynamisch -->
     <script src="js/include.js"></script>
-    <!-- JavaScript-Dateien für die Funktionalität -->
     <script src="js/script.js"></script>
 
 </head>
 
 <body>
 
-    <!-- Ladeanimation -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
     <div id="content">
-        <!-- Dynamischer Header -->
         <div id="header"></div>
 
         <main>
@@ -33,7 +28,6 @@
                 <input type="text" id="searchInput" placeholder="Suche nach Titel oder Autor..." />
             </div>
 
-            <!-- Tabelle zur Anzeige der Bücherliste -->
             <table>
                 <thead>
                     <tr>
@@ -46,15 +40,11 @@
                         <th>Aktion</th>
                     </tr>
                 </thead>
-                <tbody id="book-list">
-                    <!-- Dynamisch durch JavaScript befüllt -->
-                </tbody>
+                <tbody id="book-list"></tbody>
             </table>
 
-            <!-- Bereich für die Pagination -->
             <div id="pagination" class="pagination-container"></div>
 
-            <!-- Modal-Fenster für das Ausleihen eines Buches -->
             <div id="borrowModal" class="modal">
                 <div class="modal-content">
 
@@ -79,7 +69,6 @@
                 </div>
             </div>
         </main>
-        <!-- Dynamischer Footer -->
         <div id="footer"></div>
     </div>
 

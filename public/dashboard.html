@@ -6,50 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Statistik Dashboard</title>
 
-    <!-- Verknüpfung mit externem CSS -->
     <link rel="stylesheet" href="./css/styles.css" />
 
-    <!-- FontAwesome für Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
-    <!-- Lädt Header und Footer dynamisch -->
     <script src="js/include.js"></script>
-    <!-- JavaScript-Dateien für die Funktionalität -->
     <script src="js/script.js"></script>
 </head>
 
 <body>
 
-    <!-- Ladeanimation -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
     <div id="content">
-        <!-- Dynamischer Header -->
         <div id="header"></div>
 
         <main>
             <h2>Übersicht</h2>
 
-            <!-- Statistik-Dashboard -->
             <div class="dashboard-statistics">
 
-                <!-- Bücher verfügbar -->
                 <div class="stat-card books">
                     <div class="icon"><i class="fas fa-book"></i></div>
                     <h3>Bücher verfügbar</h3>
                     <p id="book-count">Lädt...</p>
                 </div>
 
-                <!-- Eigene Ausleihen -->
                 <div class="stat-card loans">
                     <div class="icon"><i class="fas fa-book-reader"></i></div>
                     <h3>Meine Ausleihen</h3>
                     <p id="loan-count">Lädt...</p>
                 </div>
 
-                <!-- Überfällige & bald fällige Bücher -->
                 <div class="stat-card due-books">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <h3>Überfällige & bald fällige Bücher</h3>
@@ -58,7 +48,6 @@
             </div>
         </main>
 
-        <!-- Dynamischer Footer -->
         <div id="footer"></div>
     </div>
 

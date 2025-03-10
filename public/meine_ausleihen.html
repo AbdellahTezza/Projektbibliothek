@@ -6,25 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schulbibliothek</title>
 
-    <!-- Einbindung der CSS-Datei für das Styling -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- JavaScript-Dateien für die Funktionalität -->
     <script src="js/script.js"></script>
-    <!-- Lädt Header und Footer dynamisch -->  
     <script src="js/include.js"></script>
 </head>
 
 <body>
 
-    <!-- Lade-Animation -->
     <div id="loader">
         <div class="spinner"></div>
     </div>
 
     <div id="content">
 
-        <!-- Dynamischer Header -->
         <div id="header"></div>
 
         <main>
@@ -35,7 +30,6 @@
 
             <div id="alertBox" class="alert"></div>
 
-            <!-- Tabelle zur Anzeige der ausgeliehenen Bücher -->
             <table>
                 <thead>
                     <tr>
@@ -47,17 +41,11 @@
                         <th>Aktion</th>
                     </tr>
                 </thead>
-                <tbody id="ausleihen-list">
-                    <!-- Dynamischer Inhalt wird hier eingefügt -->
-                </tbody>
+                <tbody id="ausleihen-list"></tbody>
             </table>
 
-            <!-- Paginierungscontainer für die Blätterfunktion -->
-            <div id="pagination-container">
-                <!-- Paginierungsbuttons werden dynamisch eingefügt -->
-            </div>
+            <div id="pagination-container"></div>
 
-            <!-- Modal für die Buchrückgabe -->
             <div id="borrowModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModal()">&times;</span>
@@ -77,7 +65,6 @@
             </div>
         </main>
 
-        <!-- Dynamischer Footer -->
         <div id="footer"></div>
 
     </div>
